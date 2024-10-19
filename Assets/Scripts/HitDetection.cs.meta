@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 57f7199ede97d504b997ebdb2a4eda7d
+guid: 9e9775b644c709440978010adea8f13b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - comet: {instanceID: 0}
-  - GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
