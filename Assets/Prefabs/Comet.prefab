@@ -148,4 +148,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   type: 0
-  explosionFx: {fileID: 100004, guid: 6e8c7c425e5bc374daf95a774767b1e3, type: 3}
+  explosion:
+  - {fileID: 4812739489763158990, guid: c91a5511222ab90458b144a364372fc9, type: 3}
+  - {fileID: 5021874261929746274, guid: c7c9edd1682f79b419caadeb588b5e4d, type: 3}
+  - {fileID: 6837990709659135506, guid: dd91bb75184129f4e990d3349da3f077, type: 3}
+  - {fileID: 296340545634310712, guid: 538c0f9f59a1ed1469ca650d19471bfb, type: 3}
+  - {fileID: 7522397768561509222, guid: ff4225faa39073d42ba64607cb1e2881, type: 3}
