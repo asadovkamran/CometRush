@@ -9,10 +9,12 @@ public class Comet : MonoBehaviour
     public CometType type;
     private Vector3 cometTarget;
 
-    public GameObject explosionFx;
     public GameConstants GAME_CONSTANTS;
     private Rigidbody rb;
 
+    public GameObject[] explosion;
+    
+    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -34,7 +36,7 @@ public class Comet : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Instantiate(explosionFx, gameObject.transform.position, Quaternion.identity);
+        Instantiate(explosion[Random.Range(0, explosion.Length)], transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
