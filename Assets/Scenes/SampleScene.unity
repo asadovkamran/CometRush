@@ -504,6 +504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comet: {fileID: 5615626148539670501, guid: 10dcc198c0095834dbe603396eaf3553, type: 3}
+  GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
 --- !u!4 &427191914
 Transform:
   m_ObjectHideFlags: 0
@@ -613,6 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   star: {fileID: 5615626148539670501, guid: 179ea9eff01936744af5c88248d7a7bc, type: 3}
+  GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
