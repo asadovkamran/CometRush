@@ -57876,7 +57876,6 @@ GameObject:
   - component: {fileID: 6686973859734703367}
   - component: {fileID: 1442252664576692029}
   - component: {fileID: 1096908289960035282}
-  - component: {fileID: 2701638147072428961}
   - component: {fileID: 8401920999069119152}
   m_Layer: 0
   m_Name: explosionMobile_stylized_large_originalFire
@@ -62721,27 +62720,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!135 &2701638147072428961
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7522397768561509222}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 3.51
-  m_Center: {x: 0, y: 0.78, z: 0}
 --- !u!114 &8401920999069119152
 MonoBehaviour:
   m_ObjectHideFlags: 0
