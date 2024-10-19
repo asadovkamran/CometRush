@@ -21,9 +21,6 @@ public class Comet : MonoBehaviour
 
         HandleSpawn();
         HandlePushTowardsPlayer();
-
-        Debug.Log("Camera.main.pixelWidth: " + Camera.main.pixelWidth);
-        Debug.Log("Camera.main.pixelHeight: " + Camera.main.pixelHeight);
     }
 
     void FixedUpdate()
