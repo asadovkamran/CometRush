@@ -149,3 +149,4 @@ MonoBehaviour:
   speed: 15
   type: 0
   explosionFx: {fileID: 100004, guid: 6e8c7c425e5bc374daf95a774767b1e3, type: 3}
+  GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}

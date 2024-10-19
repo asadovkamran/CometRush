@@ -5,21 +5,26 @@ using UnityEngine;
 public class Stars : MonoBehaviour
 {
     public Transform star;
+
+    public GameConstants GAME_CONSTANTS;
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(SpawnStar());
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(SpawnComet());
+
     }
 
-    IEnumerator SpawnComet()
+    IEnumerator SpawnStar()
     {
+        while (true)
+        {
             Instantiate(star);
-            yield return new WaitForSeconds(Random.Range(0, 3));
+            yield return new WaitForSeconds(Random.Range(GAME_CONSTANTS.STAR_SPAWN_INTERVAL_MIN_SECONDS, GAME_CONSTANTS.STAR_SPAWN_INTERVAL_MAX_SECONDS));
+        }
     }
 }
