@@ -11,8 +11,6 @@ public class Comet : MonoBehaviour
 
     public GameConstants GAME_CONSTANTS;
     private Rigidbody rb;
-
-    public GameObject[] explosion;
     
     // Start is called before the first frame update
     void Start()
@@ -29,12 +27,6 @@ public class Comet : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    private void OnMouseDown()
-    {
-        Instantiate(explosion[Random.Range(0, explosion.Length)], transform.position, Quaternion.identity);
-        Destroy(gameObject);
     }
 
     private void HandleSpawn()
