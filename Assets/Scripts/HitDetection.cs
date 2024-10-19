@@ -20,8 +20,6 @@ public class HitDetection : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer))
             {
-                Debug.Log(hit.transform.name);
-                Debug.Log("hit");
                 Destroy(hit.transform.gameObject);
                 Instantiate(explosions[Random.Range(0, explosions.Length)], hit.transform.position, Quaternion.identity);
             }
