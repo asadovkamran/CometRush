@@ -6,6 +6,7 @@ using UnityEngine;
 public class Star : MonoBehaviour
 {
     public float speed;
+    public GameConstants GAME_CONSTANTS;
 
     Rigidbody rb;
     // Start is called before the first frame update
@@ -13,7 +14,7 @@ public class Star : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        float spawnDistance = Random.Range(20, 100);
+        float spawnDistance = Random.Range(GAME_CONSTANTS.STAR_MIN_SPAWN_DISTANCE, GAME_CONSTANTS.STAR_MAX_SPAWN_DISTANCE);
 
         Vector3 randomSpawnPosition = new Vector3(Random.Range(0, Camera.main.pixelWidth),
             Random.Range(0, Camera.main.pixelHeight), spawnDistance);

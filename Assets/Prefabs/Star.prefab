@@ -147,3 +147,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1000
+  GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
