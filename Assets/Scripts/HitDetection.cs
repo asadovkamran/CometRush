@@ -6,10 +6,12 @@ public class HitDetection : MonoBehaviour
 {
     public LayerMask layer;
     public GameObject[] explosions;
+
+    private AudioSource explosionSound;
     // Start is called before the first frame update
     void Start()
     {
-        
+        explosionSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -24,6 +26,7 @@ public class HitDetection : MonoBehaviour
                 Instantiate(explosions[Random.Range(0, explosions.Length)], hit.transform.position, Quaternion.identity);
                 GameManager.Instance.score++;
                 UIManager.Instance.UpdateScore();
+                explosionSound.Play();
             }
         }
     }
