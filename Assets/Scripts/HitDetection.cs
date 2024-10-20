@@ -22,6 +22,8 @@ public class HitDetection : MonoBehaviour
             {
                 Destroy(hit.transform.gameObject);
                 Instantiate(explosions[Random.Range(0, explosions.Length)], hit.transform.position, Quaternion.identity);
+                GameManager.Instance.score++;
+                UIManager.Instance.UpdateScore();
             }
         }
     }
