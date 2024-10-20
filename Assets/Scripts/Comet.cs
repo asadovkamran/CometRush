@@ -13,22 +13,22 @@ public class Comet : MonoBehaviour
     public GameConstants GAME_CONSTANTS;
     private Rigidbody rb;
     private MeshFilter filter;
-    private MeshCollider sphereCollider;
-    
-    
+    private SphereCollider sphereCollider;
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         filter = GetComponent<MeshFilter>();
-       
+
         // add sphere collider
-        sphereCollider = gameObject.AddComponent<MeshCollider>();
-        sphereCollider.convex = true;
+        sphereCollider = gameObject.AddComponent<SphereCollider>();
+        sphereCollider.radius *= GAME_CONSTANTS.COMET_COLLIDER_RADIUS_SCALE;
 
         Mesh currentMesh = meshes[Random.Range(0, meshes.Length)];
         filter.mesh = currentMesh;
-       
+
 
         HandleSpawn();
         HandlePushTowardsPlayer();

@@ -9,6 +9,8 @@ public class GameConstants : ScriptableObject
     public float COMET_SPAWN_HORIZONTAL_PADDING_PERCENT = 10;
     public float COMET_SPAWN_VERTICAL_PADDING_PERCENT = 10;
 
+    public float COMET_COLLIDER_RADIUS_SCALE = 1.5f;
+
     /** Where the spawned comets will aim for in relation to camera position */
     public float MIN_TARGET_DEPTH = 1f;
     public float MAX_TARGET_DEPTH = 5f;
