@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RDG;
 
 public class HitDetection : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class HitDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0))
+        {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer))
@@ -27,12 +29,14 @@ public class HitDetection : MonoBehaviour
                 GameManager.Instance.score++;
                 UIManager.Instance.UpdateScore();
                 explosionSound.Play();
+                // vibrate andorid device
+                Vibration.Vibrate(25, 255);
             }
         }
     }
 
     private void FixedUpdate()
     {
-        
+
     }
 }
