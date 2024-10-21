@@ -28948,6 +28948,7 @@ GameObject:
   - component: {fileID: 868155854389552810}
   - component: {fileID: 3804392226089968055}
   - component: {fileID: 6395882389641160033}
+  - component: {fileID: 1145885873467929004}
   m_Layer: 0
   m_Name: explosionMobile_stylized_large_darkFire
   m_TagString: Untagged
@@ -33825,6 +33826,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathtimer: 5
+--- !u!114 &1145885873467929004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5021874261929746274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82dfa0fc9c04d2d4f8d8446f2f3dc041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 0
 --- !u!1 &5030459881295488781
 GameObject:
   m_ObjectHideFlags: 0

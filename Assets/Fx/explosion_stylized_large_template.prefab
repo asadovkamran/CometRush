@@ -34007,6 +34007,7 @@ GameObject:
   - component: {fileID: 1200845292270032696}
   - component: {fileID: 1300176805138567696}
   - component: {fileID: 2668125095452285804}
+  - component: {fileID: 4274852527879346166}
   m_Layer: 0
   m_Name: explosion_stylized_large_template
   m_TagString: Untagged
@@ -39027,6 +39028,19 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
   applyChanges: 0
   Keep_applyChanges: 0
+--- !u!114 &4274852527879346166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4812739489763158990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82dfa0fc9c04d2d4f8d8446f2f3dc041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 3
 --- !u!1 &4918760217294853451
 GameObject:
   m_ObjectHideFlags: 0
