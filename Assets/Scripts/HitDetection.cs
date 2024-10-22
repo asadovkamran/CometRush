@@ -34,9 +34,4 @@ public class HitDetection : MonoBehaviour
             }
         }
     }
-
-    private void FixedUpdate()
-    {
-
-    }
 }

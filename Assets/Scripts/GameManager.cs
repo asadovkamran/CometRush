@@ -18,13 +18,12 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
     }
-    // Start is called before the first frame update
+    
     void Start()
     {
         shieldsCapacity = GAME_CONSTANTS.PLAYER_SHIELDS_CAPACITY;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -47,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     void HandleGameOver()
     {
-        Debug.Log("Game over");
         Time.timeScale = 0;
+        SceneManager.LoadScene(2);
     }
 }

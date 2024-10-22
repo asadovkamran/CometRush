@@ -26,15 +26,8 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score: " + GameManager.Instance.score;
     }
 
-    public void TestingEvent()
-    {
-        Debug.Log("Comet crashed event");
-    }
-
     public void UpdateShieldsUI(float value)
     {
-        Debug.Log("update shields ui");
-        Debug.Log(value / GAME_CONSTANTS.PLAYER_SHIELDS_CAPACITY);
         _shieldsSlider.value = value / GAME_CONSTANTS.PLAYER_SHIELDS_CAPACITY;
     }
 }

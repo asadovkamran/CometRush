@@ -4,6 +4,7 @@ using UnityEngine;
 using CometRush.Enums;
 using UnityEngine.Events;
 using Unity.VisualScripting;
+using System;
 
 public class Comet : MonoBehaviour
 {
@@ -18,8 +19,6 @@ public class Comet : MonoBehaviour
     private MeshFilter filter;
     private SphereCollider sphereCollider;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -29,7 +28,7 @@ public class Comet : MonoBehaviour
         sphereCollider = gameObject.AddComponent<SphereCollider>();
         sphereCollider.radius *= GAME_CONSTANTS.COMET_COLLIDER_RADIUS_SCALE;
 
-        Mesh currentMesh = meshes[Random.Range(0, meshes.Length)];
+        Mesh currentMesh = meshes[UnityEngine.Random.Range(0, meshes.Length)];
         filter.mesh = currentMesh;
 
 
@@ -49,14 +48,14 @@ public class Comet : MonoBehaviour
 
     private void HandleSpawn()
     {
-        float spawnDistance = Random.Range(GAME_CONSTANTS.MIN_SPAWN_DISTANCE, GAME_CONSTANTS.MAX_SPAWN_DISTANCE);
+        float spawnDistance = UnityEngine.Random.Range(GAME_CONSTANTS.MIN_SPAWN_DISTANCE, GAME_CONSTANTS.MAX_SPAWN_DISTANCE);
 
         int horizontalPaddingPx = (int)(Camera.main.pixelWidth * GAME_CONSTANTS.COMET_SPAWN_HORIZONTAL_PADDING_PERCENT / 100);
         int verticalPaddingPx = (int)(Camera.main.pixelHeight * GAME_CONSTANTS.COMET_SPAWN_VERTICAL_PADDING_PERCENT / 100);
 
         Vector3 spawnPositionScreenPoint = new Vector3(
-            Random.Range(horizontalPaddingPx, Camera.main.pixelWidth - horizontalPaddingPx),
-            Random.Range(verticalPaddingPx, Camera.main.pixelHeight - verticalPaddingPx),
+            UnityEngine.Random.Range(horizontalPaddingPx, Camera.main.pixelWidth - horizontalPaddingPx),
+            UnityEngine.Random.Range(verticalPaddingPx, Camera.main.pixelHeight - verticalPaddingPx),
             spawnDistance
         );
         Vector3 spawnPositionWorld = Camera.main.ScreenToWorldPoint(spawnPositionScreenPoint);
@@ -66,13 +65,13 @@ public class Comet : MonoBehaviour
     private void HandlePushTowardsPlayer()
     {
         Vector3 randomTargetPosition = new Vector3(
-            Random.Range(0, Camera.main.pixelWidth),
-            Random.Range(0, Camera.main.pixelHeight),
-            -Random.Range(1, 5)
+            UnityEngine.Random.Range(0, Camera.main.pixelWidth),
+            UnityEngine.Random.Range(0, Camera.main.pixelHeight),
+            -UnityEngine.Random.Range(1, 5)
         );
         cometTarget = Camera.main.ScreenToWorldPoint(randomTargetPosition);
 
-        speed = GAME_CONSTANTS.COMET_BASE_SPEED + Random.Range(-GAME_CONSTANTS.COMET_SPEED_VARIANCE, GAME_CONSTANTS.COMET_SPEED_VARIANCE);
+        speed = GAME_CONSTANTS.COMET_BASE_SPEED + UnityEngine.Random.Range(-GAME_CONSTANTS.COMET_SPEED_VARIANCE, GAME_CONSTANTS.COMET_SPEED_VARIANCE);
 
         Vector3 force = (cometTarget - rb.position).normalized * speed;
         rb.AddForce(force, ForceMode.Impulse);
