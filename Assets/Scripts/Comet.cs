@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CometRush.Enums;
+using UnityEngine.Events;
+using Unity.VisualScripting;
 
 public class Comet : MonoBehaviour
 {
     public float speed;
     public CometType type;
+    public float cometDamage;
     private Vector3 cometTarget;
     public Mesh[] meshes;
 
@@ -38,7 +41,9 @@ public class Comet : MonoBehaviour
     {
         if (rb.position.z > Camera.main.transform.position.z)
         {
+            GameManager.Instance.UpdateShields(-cometDamage);
             Destroy(gameObject);
+            
         }
     }
 
