@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public event Action<float> OnShieldsUpdated;
 
+    float time;
+
     private void Awake()
     {
         Instance = this;
@@ -26,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        time += Time.deltaTime;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -34,6 +38,14 @@ public class GameManager : MonoBehaviour
         if (shieldsCapacity <= 0) {
             HandleGameOver();
         }
+
+        if (time > 1 && shieldsCapacity < GAME_CONSTANTS.PLAYER_SHIELDS_CAPACITY)
+        {
+            time = 0;
+            UpdateShields(GAME_CONSTANTS.SHIELD_REGEN_RATE);
+            Debug.Log(shieldsCapacity); 
+        }
+        
     }
 
     public void UpdateShields(float amount)
