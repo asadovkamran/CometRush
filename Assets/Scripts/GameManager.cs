@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameConstants GAME_CONSTANTS;
     public int score = 0;
     [SerializeField] private float shieldsCapacity;
+    [SerializeField] private float difficulty = 0;
 
     public event Action<float> OnShieldsUpdated;
 
@@ -43,7 +44,6 @@ public class GameManager : MonoBehaviour
         {
             time = 0;
             UpdateShields(GAME_CONSTANTS.SHIELD_REGEN_RATE);
-            Debug.Log(shieldsCapacity); 
         }
         
     }
@@ -60,5 +60,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         SceneManager.LoadScene(2);
+    }
+
+    public float getDifficulty()
+    {
+        difficulty += Time.deltaTime * GAME_CONSTANTS.DIFFICULTY_COEFFICIENT;
+        return difficulty;
     }
 }

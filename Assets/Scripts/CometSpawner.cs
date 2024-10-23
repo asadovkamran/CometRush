@@ -24,7 +24,7 @@ public class CometSpawner : MonoBehaviour
         {
             activeComets = activeComets.Where(comet => !comet.IsDestroyed()).ToList();
 
-            if (activeComets.Count < GAME_CONSTANTS.MAX_SIMULTANEOUS_COMETS)
+            if (activeComets.Count < GAME_CONSTANTS.MAX_SIMULTANEOUS_COMETS + Mathf.Floor(GameManager.Instance.getDifficulty()))
             {
                 Transform newComet = Instantiate(comet);
                 activeComets.Add(newComet);

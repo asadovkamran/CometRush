@@ -30,4 +30,6 @@ public class GameConstants : ScriptableObject
 
     public float PLAYER_SHIELDS_CAPACITY = 100f;
     public float SHIELD_REGEN_RATE = 0.1f;
+
+    public float DIFFICULTY_COEFFICIENT = 0.005f;
 }

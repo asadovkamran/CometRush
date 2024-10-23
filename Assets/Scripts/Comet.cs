@@ -71,7 +71,7 @@ public class Comet : MonoBehaviour
         );
         cometTarget = Camera.main.ScreenToWorldPoint(randomTargetPosition);
 
-        speed = GAME_CONSTANTS.COMET_BASE_SPEED + UnityEngine.Random.Range(-GAME_CONSTANTS.COMET_SPEED_VARIANCE, GAME_CONSTANTS.COMET_SPEED_VARIANCE);
+        speed = GAME_CONSTANTS.COMET_BASE_SPEED + UnityEngine.Random.Range(-GAME_CONSTANTS.COMET_SPEED_VARIANCE, GAME_CONSTANTS.COMET_SPEED_VARIANCE) + GameManager.Instance.getDifficulty();
 
         Vector3 force = (cometTarget - rb.position).normalized * speed;
         rb.AddForce(force, ForceMode.Impulse);
