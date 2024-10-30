@@ -43,6 +43,7 @@ public class Comet : MonoBehaviour
             GameManager.Instance.UpdateShields(-cometDamage);
             Destroy(gameObject);
             FullScreenDamage.Instance.RunHurt();
+            ShakeableTransform.Instance.RunShake();
         }
     }
 
