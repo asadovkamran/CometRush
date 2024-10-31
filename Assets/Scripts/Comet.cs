@@ -40,10 +40,12 @@ public class Comet : MonoBehaviour
     {
         if (rb.position.z > Camera.main.transform.position.z)
         {
+            // probably this code should not be here
             GameManager.Instance.UpdateShields(-cometDamage);
             Destroy(gameObject);
             FullScreenDamage.Instance.RunHurt();
             ShakeableTransform.Instance.RunShake();
+            CometImpactSound.Instance.PlaySound();
         }
     }
 
