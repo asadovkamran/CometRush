@@ -2,18 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RDG;
+using System;
 
 public class HitDetection : MonoBehaviour
 {
     public LayerMask layer;
-    public GameObject[] explosions;
+   
 
-    private AudioSource explosionSound;
-    // Start is called before the first frame update
-    void Start()
-    {
-        explosionSound = GetComponent<AudioSource>();
-    }
+    public static event Action<GameObject> OnCometHit;
 
     // Update is called once per frame
     void Update()
@@ -24,12 +20,8 @@ public class HitDetection : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer))
             {
-                Destroy(hit.transform.gameObject);
-                Instantiate(explosions[Random.Range(0, explosions.Length)], hit.transform.position, Quaternion.identity);
-                GameManager.Instance.score++;
-                UIManager.Instance.UpdateScore();
-                explosionSound.Play();
-                // vibrate andorid device
+                OnCometHit?.Invoke(hit.transform.gameObject);
+                // vibrate android device
                 Vibration.Vibrate(25, 255);
             }
         }

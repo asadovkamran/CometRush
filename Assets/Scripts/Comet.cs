@@ -5,6 +5,7 @@ using CometRush.Enums;
 using UnityEngine.Events;
 using Unity.VisualScripting;
 using System;
+using Unity.Burst.CompilerServices;
 
 public class Comet : MonoBehaviour
 {
@@ -13,11 +14,14 @@ public class Comet : MonoBehaviour
     public float cometDamage;
     private Vector3 cometTarget;
     public Mesh[] meshes;
+    public GameObject[] explosions;
 
     public GameConstants GAME_CONSTANTS;
     private Rigidbody rb;
     private MeshFilter filter;
     private SphereCollider sphereCollider;
+
+    public static event Action OnCometDestroyed;
 
     void Start()
     {
@@ -49,6 +53,16 @@ public class Comet : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        HitDetection.OnCometHit += HandleDestroy;
+    }
+
+    private void OnDisable()
+    {
+        HitDetection.OnCometHit -= HandleDestroy;
+    }
+
     private void HandleSpawn()
     {
         float spawnDistance = UnityEngine.Random.Range(GAME_CONSTANTS.MIN_SPAWN_DISTANCE, GAME_CONSTANTS.MAX_SPAWN_DISTANCE);
@@ -78,5 +92,18 @@ public class Comet : MonoBehaviour
 
         Vector3 force = (cometTarget - rb.position).normalized * speed;
         rb.AddForce(force, ForceMode.Impulse);
+    }
+
+    private void HandleDestroy(GameObject obj)
+    {
+        if (obj != null && GameObject.ReferenceEquals(obj, gameObject)) {
+            Instantiate(explosions[UnityEngine.Random.Range(0, explosions.Length)], transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        OnCometDestroyed?.Invoke();
     }
 }

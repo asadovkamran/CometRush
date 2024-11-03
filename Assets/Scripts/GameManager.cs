@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float shieldsCapacity;
     [SerializeField] private float difficulty = 0;
 
-    public event Action<float> OnShieldsUpdated;
+    public static event Action<float> OnShieldsUpdated;
+    public static event Action<float> OnScoreUpdated;
 
     float time;
 
@@ -25,6 +26,16 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         shieldsCapacity = GAME_CONSTANTS.PLAYER_SHIELDS_CAPACITY;
+    }
+
+    private void OnEnable()
+    {
+        Comet.OnCometDestroyed += IncrementScore;
+    }
+
+    private void OnDisable()
+    {
+        Comet.OnCometDestroyed -= IncrementScore;
     }
 
     void Update()
@@ -66,5 +77,11 @@ public class GameManager : MonoBehaviour
     {
         difficulty += Time.deltaTime * GAME_CONSTANTS.DIFFICULTY_COEFFICIENT;
         return difficulty;
+    }
+
+    private void IncrementScore()
+    {
+        score++;
+        OnScoreUpdated?.Invoke(score);
     }
 }
