@@ -17,13 +17,24 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.OnShieldsUpdated += UpdateShieldsUI;
-        UpdateScore();
+        UpdateScore(0);
     }
 
-    public void UpdateScore()
+    private void OnEnable()
     {
-        _scoreText.text = "Score: " + GameManager.Instance.score;
+        GameManager.OnShieldsUpdated += UpdateShieldsUI;
+        GameManager.OnScoreUpdated += UpdateScore;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnShieldsUpdated -= UpdateShieldsUI;
+        GameManager.OnScoreUpdated -= UpdateScore;
+    }
+
+    public void UpdateScore(float score)
+    {
+        _scoreText.text = "Score: " + score;
     }
 
     public void UpdateShieldsUI(float value)

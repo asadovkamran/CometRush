@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4615087657945068883}
   - component: {fileID: 6016194941924350417}
   - component: {fileID: 428112997220120485}
+  - component: {fileID: 398900047991939270}
   - component: {fileID: 8446242656508206878}
   - component: {fileID: -2616881035369935064}
-  - component: {fileID: 398900047991939270}
   m_Layer: 6
   m_Name: Comet
   m_TagString: Comet
@@ -114,37 +114,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8446242656508206878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2992868611528541634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bfb78af65454ea4b9d7f920eaec9f18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 15
-  type: 0
-  cometDamage: 20
-  meshes:
-  - {fileID: -2432090755550338912, guid: a9986cf529ade354b82fa777884e07ca, type: 3}
-  - {fileID: -2432090755550338912, guid: 0dc054e03d7cf084b90c6e75474fbaf9, type: 3}
-  GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
---- !u!114 &-2616881035369935064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2992868611528541634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71732b9fa3be64d48aad2944b059b709, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &398900047991939270
 AudioSource:
   m_ObjectHideFlags: 0
@@ -241,3 +210,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8446242656508206878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2992868611528541634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bfb78af65454ea4b9d7f920eaec9f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 15
+  type: 0
+  cometDamage: 20
+  meshes:
+  - {fileID: -2432090755550338912, guid: a9986cf529ade354b82fa777884e07ca, type: 3}
+  - {fileID: -2432090755550338912, guid: 0dc054e03d7cf084b90c6e75474fbaf9, type: 3}
+  explosions:
+  - {fileID: 4812739489763158990, guid: c91a5511222ab90458b144a364372fc9, type: 3}
+  GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
+--- !u!114 &-2616881035369935064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2992868611528541634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71732b9fa3be64d48aad2944b059b709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
