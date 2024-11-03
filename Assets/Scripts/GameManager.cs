@@ -34,12 +34,12 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Comet.OnCometDestroyed += IncrementScore;
+        HitDetection.OnCometHit += IncrementScore;
     }
 
     private void OnDisable()
     {
-        Comet.OnCometDestroyed -= IncrementScore;
+        HitDetection.OnCometHit += IncrementScore;
     }
 
     void Update()
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         return difficulty;
     }
 
-    private void IncrementScore()
+    private void IncrementScore(GameObject obj)
     {
         score++;
         OnScoreUpdated?.Invoke(score);

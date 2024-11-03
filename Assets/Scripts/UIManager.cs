@@ -59,7 +59,6 @@ public class UIManager : MonoBehaviour
         int minutes = Mathf.FloorToInt(elapsedTime / 60F);
         int seconds = Mathf.FloorToInt(elapsedTime % 60F);
 
-        // Format and display the time in "MM:SS" format
         _timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }

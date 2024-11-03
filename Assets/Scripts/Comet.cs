@@ -55,12 +55,12 @@ public class Comet : MonoBehaviour
 
     private void OnEnable()
     {
-        HitDetection.OnCometHit += HandleDestroy;
+        HitDetection.OnCometHit += HandleHit;
     }
 
     private void OnDisable()
     {
-        HitDetection.OnCometHit -= HandleDestroy;
+        HitDetection.OnCometHit -= HandleHit;
     }
 
     private void HandleSpawn()
@@ -94,16 +94,11 @@ public class Comet : MonoBehaviour
         rb.AddForce(force, ForceMode.Impulse);
     }
 
-    private void HandleDestroy(GameObject obj)
+    private void HandleHit(GameObject obj)
     {
         if (obj != null && GameObject.ReferenceEquals(obj, gameObject)) {
             Instantiate(explosions[UnityEngine.Random.Range(0, explosions.Length)], transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
-    }
-
-    private void OnDestroy()
-    {
-        OnCometDestroyed?.Invoke();
     }
 }

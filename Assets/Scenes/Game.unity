@@ -1737,7 +1737,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1355017201}
   - component: {fileID: 1355017200}
-  - component: {fileID: 1355017202}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1757,10 +1756,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cdf515c88449ff4aba30889a8c09e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
-  score: 0
   shieldsCapacity: 0
   difficulty: 0
+  GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
 --- !u!4 &1355017201
 Transform:
   m_ObjectHideFlags: 0
@@ -1776,18 +1774,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1355017202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1355017199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e35f95af8808f5499444b729f321fda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1445613343
 GameObject:
   m_ObjectHideFlags: 0
