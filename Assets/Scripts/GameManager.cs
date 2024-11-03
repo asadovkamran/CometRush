@@ -7,22 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    public GameConstants GAME_CONSTANTS;
-    public int score = 0;
     [SerializeField] private float shieldsCapacity;
     [SerializeField] private float difficulty = 0;
+
+    public static GameManager Instance;
+    public GameConstants GAME_CONSTANTS;
 
     public static event Action<float> OnShieldsUpdated;
     public static event Action<float> OnScoreUpdated;
 
-    float time;
+    public static int score = 0;
+    public static float time;
 
     private void Awake()
     {
         Instance = this;
     }
-    
+
     void Start()
     {
         shieldsCapacity = GAME_CONSTANTS.PLAYER_SHIELDS_CAPACITY;
@@ -47,7 +48,8 @@ public class GameManager : MonoBehaviour
             Application.Quit();
         }
 
-        if (shieldsCapacity <= 0) {
+        if (shieldsCapacity <= 0)
+        {
             HandleGameOver();
         }
 
@@ -56,7 +58,7 @@ public class GameManager : MonoBehaviour
             time = 0;
             UpdateShields(GAME_CONSTANTS.SHIELD_REGEN_RATE);
         }
-        
+
     }
 
     public void UpdateShields(float amount)
