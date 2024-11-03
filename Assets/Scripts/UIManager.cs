@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateTimer()
     {
-        float elapsedTime = GameManager.time;
+        float elapsedTime = GameManager.elapsedTime;
 
         int minutes = Mathf.FloorToInt(elapsedTime / 60F);
         int seconds = Mathf.FloorToInt(elapsedTime % 60F);
