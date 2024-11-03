@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -17,7 +18,8 @@ public class GameManager : MonoBehaviour
     public static event Action<float> OnScoreUpdated;
 
     public static int score = 0;
-    public static float time;
+    public static float elapsedTime;
+
 
     private void Awake()
     {
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         shieldsCapacity = GAME_CONSTANTS.PLAYER_SHIELDS_CAPACITY;
+        InvokeRepeating("RegenerateShields", 2f, GAME_CONSTANTS.SHIELD_REGEN_RATE);
     }
 
     private void OnEnable()
@@ -41,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        time += Time.deltaTime;
+        elapsedTime += Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -52,18 +55,17 @@ public class GameManager : MonoBehaviour
         {
             HandleGameOver();
         }
-
-        if (time > 1 && shieldsCapacity < GAME_CONSTANTS.PLAYER_SHIELDS_CAPACITY)
-        {
-            time = 0;
-            UpdateShields(GAME_CONSTANTS.SHIELD_REGEN_RATE);
-        }
-
     }
 
     public void UpdateShields(float amount)
     {
         shieldsCapacity += amount;
+        OnShieldsUpdated?.Invoke(shieldsCapacity);
+    }
+
+    private void RegenerateShields()
+    {
+        shieldsCapacity = Mathf.Clamp(shieldsCapacity + 1, 0f, 100f);
         OnShieldsUpdated?.Invoke(shieldsCapacity);
     }
 
