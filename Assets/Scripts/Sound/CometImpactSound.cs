@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CometImpactSound : MonoBehaviour
 {
     public static CometImpactSound Instance;
-    private AudioSource audio;
+
+    private AudioSource _audio;
 
     private void Awake()
     {
         Instance = this;
-        audio = GetComponent<AudioSource>();
+        _audio = GetComponent<AudioSource>();
     }
 
     public void PlaySound()
     {
-        audio.Play();
+        _audio.Play();
     }
 }

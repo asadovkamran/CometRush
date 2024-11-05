@@ -6,13 +6,12 @@ using UnityEngine;
 
 public class CometSpawner : MonoBehaviour
 {
-    public Transform comet;
+    public Transform Comet;
     public GameConstants GAME_CONSTANTS;
 
-    private List<Transform> activeComets = new List<Transform>();
+    private List<Transform> _activeComets = new List<Transform>();
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         StartCoroutine(SpawnComet());
     }
@@ -22,12 +21,12 @@ public class CometSpawner : MonoBehaviour
     {
         while (true)
         {
-            activeComets = activeComets.Where(comet => !comet.IsDestroyed()).ToList();
+            _activeComets = _activeComets.Where(comet => !comet.IsDestroyed()).ToList();
 
-            if (activeComets.Count < GAME_CONSTANTS.MAX_SIMULTANEOUS_COMETS + Mathf.Floor(GameManager.Instance.getDifficulty()))
+            if (_activeComets.Count < GAME_CONSTANTS.MAX_SIMULTANEOUS_COMETS + Mathf.Floor(GameManager.Instance.getDifficulty()))
             {
-                Transform newComet = Instantiate(comet);
-                activeComets.Add(newComet);
+                Transform newComet = Instantiate(Comet);
+                _activeComets.Add(newComet);
             }
             yield return new WaitForSeconds(
                 Random.Range(GAME_CONSTANTS.COMET_SPAWN_INTERVAL_MIN_SECONDS, GAME_CONSTANTS.COMET_SPAWN_INTERVAL_MAX_SECONDS)

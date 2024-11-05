@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    private AudioSource explosionSound;
+    private AudioSource _explosionSound;
 
     private void Awake()
     {
-        explosionSound = GetComponent<AudioSource>();
+        _explosionSound = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -23,6 +21,6 @@ public class SoundManager : MonoBehaviour
 
     private void HandleSoundPlay(GameObject obj)
     {
-        explosionSound.Play();
+        _explosionSound.Play();
     }
 }

@@ -1,25 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RandomRotation : MonoBehaviour
 {
-    Rigidbody rb;
+    private Rigidbody _rb;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
     }
 
-    void Start()
+    private void Start()
     {
         transform.rotation = Random.rotation;
-        rb.angularVelocity = Random.onUnitSphere * Random.Range(2.0f, 5.0f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _rb.angularVelocity = Random.onUnitSphere * Random.Range(2.0f, 5.0f);
     }
 }
