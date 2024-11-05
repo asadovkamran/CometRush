@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,7 +52,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateTimer()
     {
-        float elapsedTime = GameManager.elapsedTime;
+        float elapsedTime = GameManager.ElapsedTime;
 
         int minutes = Mathf.FloorToInt(elapsedTime / 60F);
         int seconds = Mathf.FloorToInt(elapsedTime % 60F);

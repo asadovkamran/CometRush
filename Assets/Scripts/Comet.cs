@@ -1,51 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using CometRush.Enums;
-using UnityEngine.Events;
-using Unity.VisualScripting;
 using System;
-using Unity.Burst.CompilerServices;
 
 public class Comet : MonoBehaviour
 {
-    public float speed;
-    public CometType type;
-    public float cometDamage;
-    private Vector3 cometTarget;
-    public Mesh[] meshes;
-    public GameObject[] explosions;
-
     public GameConstants GAME_CONSTANTS;
-    private Rigidbody rb;
-    private MeshFilter filter;
-    private SphereCollider sphereCollider;
+    public float Speed;
+    public CometType Type;
+    public float CometDamage;
+    public Mesh[] Meshes;
+    public GameObject[] Explosions;
 
     public static event Action OnCometDestroyed;
 
-    void Start()
+    private Vector3 _cometTarget;
+    private Rigidbody _rb;
+    private MeshFilter _filter;
+    private SphereCollider _sphereCollider;
+
+    
+
+    private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        filter = GetComponent<MeshFilter>();
+        _rb = GetComponent<Rigidbody>();
+        _filter = GetComponent<MeshFilter>();
 
-        // add sphere collider
-        sphereCollider = gameObject.AddComponent<SphereCollider>();
-        sphereCollider.radius *= GAME_CONSTANTS.COMET_COLLIDER_RADIUS_SCALE;
+        _sphereCollider = gameObject.AddComponent<SphereCollider>();
+        _sphereCollider.radius *= GAME_CONSTANTS.COMET_COLLIDER_RADIUS_SCALE;
 
-        Mesh currentMesh = meshes[UnityEngine.Random.Range(0, meshes.Length)];
-        filter.mesh = currentMesh;
+        Mesh currentMesh = Meshes[UnityEngine.Random.Range(0, Meshes.Length)];
+        _filter.mesh = currentMesh;
 
 
         HandleSpawn();
         HandlePushTowardsPlayer();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (rb.position.z > Camera.main.transform.position.z)
+        if (_rb.position.z > Camera.main.transform.position.z)
         {
             // probably this code should not be here
-            GameManager.Instance.UpdateShields(-cometDamage);
+            GameManager.Instance.UpdateShields(-CometDamage);
             Destroy(gameObject);
             FullScreenDamage.Instance.RunHurt();
             ShakeableTransform.Instance.RunShake();
@@ -76,7 +72,7 @@ public class Comet : MonoBehaviour
             spawnDistance
         );
         Vector3 spawnPositionWorld = Camera.main.ScreenToWorldPoint(spawnPositionScreenPoint);
-        rb.position = spawnPositionWorld;
+        _rb.position = spawnPositionWorld;
     }
 
     private void HandlePushTowardsPlayer()
@@ -86,18 +82,18 @@ public class Comet : MonoBehaviour
             UnityEngine.Random.Range(0, Camera.main.pixelHeight),
             -UnityEngine.Random.Range(1, 5)
         );
-        cometTarget = Camera.main.ScreenToWorldPoint(randomTargetPosition);
+        _cometTarget = Camera.main.ScreenToWorldPoint(randomTargetPosition);
 
-        speed = GAME_CONSTANTS.COMET_BASE_SPEED + UnityEngine.Random.Range(-GAME_CONSTANTS.COMET_SPEED_VARIANCE, GAME_CONSTANTS.COMET_SPEED_VARIANCE) + GameManager.Instance.getDifficulty();
+        Speed = GAME_CONSTANTS.COMET_BASE_SPEED + UnityEngine.Random.Range(-GAME_CONSTANTS.COMET_SPEED_VARIANCE, GAME_CONSTANTS.COMET_SPEED_VARIANCE) + GameManager.Instance.getDifficulty();
 
-        Vector3 force = (cometTarget - rb.position).normalized * speed;
-        rb.AddForce(force, ForceMode.Impulse);
+        Vector3 force = (_cometTarget - _rb.position).normalized * Speed;
+        _rb.AddForce(force, ForceMode.Impulse);
     }
 
     private void HandleHit(GameObject obj)
     {
         if (obj != null && GameObject.ReferenceEquals(obj, gameObject)) {
-            Instantiate(explosions[UnityEngine.Random.Range(0, explosions.Length)], transform.position, Quaternion.identity);
+            Instantiate(Explosions[UnityEngine.Random.Range(0, Explosions.Length)], transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

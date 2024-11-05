@@ -1,15 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Stars : MonoBehaviour
 {
-    public Transform star;
-
+    public Transform Star;
     public GameConstants GAME_CONSTANTS;
-    public ObjectPool pool;
+    public ObjectPool Pool;
     
-    void Start()
+    private void Start()
     {
         StartCoroutine(SpawnStar());
     }
@@ -18,7 +16,7 @@ public class Stars : MonoBehaviour
     {
         while (true)
         {
-            pool.GetPooledObject();
+            Pool.GetPooledObject();
             yield return new WaitForSeconds(Random.Range(GAME_CONSTANTS.STAR_SPAWN_INTERVAL_MIN_SECONDS, GAME_CONSTANTS.STAR_SPAWN_INTERVAL_MAX_SECONDS));
         }
     }
