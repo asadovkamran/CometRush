@@ -11,17 +11,15 @@ public class Comet : MonoBehaviour
     public Mesh[] Meshes;
     public GameObject[] Explosions;
 
-    public static event Action OnCometDestroyed;
+    public static event Action<float> OnCometReachPlayer;
 
     private Vector3 _cometTarget;
     private Rigidbody _rb;
     private MeshFilter _filter;
     private SphereCollider _sphereCollider;
 
-    
-
     private void Start()
-    {
+    {  
         _rb = GetComponent<Rigidbody>();
         _filter = GetComponent<MeshFilter>();
 
@@ -40,12 +38,8 @@ public class Comet : MonoBehaviour
     {
         if (_rb.position.z > Camera.main.transform.position.z)
         {
-            // probably this code should not be here
-            GameManager.Instance.UpdateShields(-CometDamage);
+            OnCometReachPlayer?.Invoke(-CometDamage);
             Destroy(gameObject);
-            FullScreenDamage.Instance.RunHurt();
-            ShakeableTransform.Instance.RunShake();
-            CometImpactSound.Instance.PlaySound();
         }
     }
 
@@ -92,7 +86,8 @@ public class Comet : MonoBehaviour
 
     private void HandleHit(GameObject obj)
     {
-        if (obj != null && GameObject.ReferenceEquals(obj, gameObject)) {
+        if (obj != null && GameObject.ReferenceEquals(obj, gameObject))
+        {
             Instantiate(Explosions[UnityEngine.Random.Range(0, Explosions.Length)], transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

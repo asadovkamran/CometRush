@@ -2,25 +2,32 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    private AudioSource _explosionSound;
-
+    private AudioSource _explosionSoundAS;
+    private AudioSource _cometImpactAS;
     private void Awake()
     {
-        _explosionSound = GetComponent<AudioSource>();
+        _explosionSoundAS = transform.Find("ExplosionSound").GetComponent<AudioSource>();
+        _cometImpactAS = transform.Find("CometImpactSound").GetComponent<AudioSource>();
     }
-
     private void OnEnable()
     {
-        HitDetection.OnCometHit += HandleSoundPlay;
+        HitDetection.OnCometHit += HandleOnCometHit;
+        Comet.OnCometReachPlayer += HandleOnCometReachPlayer;
     }
 
     private void OnDisable()
     {
-        HitDetection.OnCometHit -= HandleSoundPlay;
+        HitDetection.OnCometHit -= HandleOnCometHit;
+        Comet.OnCometReachPlayer -= HandleOnCometReachPlayer;
     }
 
-    private void HandleSoundPlay(GameObject obj)
+    private void HandleOnCometHit(GameObject obj)
     {
-        _explosionSound.Play();
+        _explosionSoundAS.Play();
+    }
+
+    private void HandleOnCometReachPlayer(float damage)
+    {
+        _cometImpactAS.Play();
     }
 }
