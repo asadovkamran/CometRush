@@ -17,6 +17,21 @@ public class ShakeableTransform : MonoBehaviour
         Instance = this;
     }
 
+    private void OnEnable()
+    {
+        Comet.OnCometReachPlayer += HandleOnCometReachPlayer;
+    }
+
+    private void OnDisable()
+    {
+        Comet.OnCometReachPlayer -= HandleOnCometReachPlayer;
+    }
+
+    private void HandleOnCometReachPlayer(float damage)
+    {
+        RunShake();
+    }
+
     public void RunShake()
     {
         StartCoroutine(Shake());

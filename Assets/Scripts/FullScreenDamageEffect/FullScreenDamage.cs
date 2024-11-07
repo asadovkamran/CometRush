@@ -32,12 +32,27 @@ public class FullScreenDamage : MonoBehaviour
         _fullScreenDamage.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        Comet.OnCometReachPlayer += HandleOnCometReachPlayer;
+    }
+
+    private void OnDisable()
+    {
+        Comet.OnCometReachPlayer -= HandleOnCometReachPlayer;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             StartCoroutine(Hurt());
         }
+    }
+
+    private void HandleOnCometReachPlayer(float damage)
+    {
+        RunHurt();
     }
 
     public void RunHurt()

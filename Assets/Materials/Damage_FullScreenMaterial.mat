@@ -40,7 +40,7 @@ Material:
     m_Floats:
     - _Vignette_Intensity: 1.7
     - _Vignette_Power: 8.3
-    - _VoronoiIntensity: 2.3879726
+    - _VoronoiIntensity: 0
     - _VoronoiPower: 10
     - _VoronoiScale: 15
     - _VoronoiSpeed: 7

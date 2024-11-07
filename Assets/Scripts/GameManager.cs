@@ -31,11 +31,13 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         HitDetection.OnCometHit += IncrementScore;
+        Comet.OnCometReachPlayer += UpdateShields;
     }
 
     private void OnDisable()
     {
-        HitDetection.OnCometHit += IncrementScore;
+        HitDetection.OnCometHit -= IncrementScore;
+        Comet.OnCometReachPlayer -= UpdateShields;
     }
 
     private void Update()
