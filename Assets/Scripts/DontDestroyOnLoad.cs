@@ -28,4 +28,14 @@ public class DontDestroyOnLoad : MonoBehaviour
         _score = score;
         _time = elapsedTime;
     }
+
+    public float GetScore()
+    {
+        return _score;
+    }
+
+    public float GetTime()
+    {
+        return _time;
+    }
 }
