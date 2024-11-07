@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     public static event Action<float> OnShieldsUpdated;
     public static event Action<float> OnScoreUpdated;
+    public static event Action<int, float> OnGameOver;
 
     public static int Score = 0;
     public static float ElapsedTime;
@@ -72,6 +74,7 @@ public class GameManager : MonoBehaviour
     private void HandleGameOver()
     {
         Time.timeScale = 0;
+        OnGameOver?.Invoke(Score, ElapsedTime);
         SceneManager.LoadScene(2);
     }
 
