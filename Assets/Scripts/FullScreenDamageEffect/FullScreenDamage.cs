@@ -20,13 +20,6 @@ public class FullScreenDamage : MonoBehaviour
     private int _voronoiIntensity = Shader.PropertyToID("_VoronoiIntensity");
     private int _vignetteIntensity = Shader.PropertyToID("_VignetteIntensity");
 
-    public static FullScreenDamage Instance;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
-
     private void Start()
     {
         _fullScreenDamage.SetActive(false);

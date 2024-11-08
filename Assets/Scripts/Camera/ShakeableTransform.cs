@@ -3,19 +3,12 @@ using UnityEngine;
 
 public class ShakeableTransform : MonoBehaviour
 {
-    public static ShakeableTransform Instance;
-
     [SerializeField] private float _frequency = 25;
     [SerializeField] private Vector3 _maximumTranslationShake = Vector3.one * 0.5f;
     [SerializeField] private float _recoverySpeed = 1.5f;
     [SerializeField] private float _hurtFadeOutTime = 0.5f;
     [SerializeField] private float _traumaExponent = 2;
     private float _trauma = 1;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     private void OnEnable()
     {

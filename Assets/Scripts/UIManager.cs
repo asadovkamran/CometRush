@@ -8,15 +8,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _timerText;
     [SerializeField] private Slider _shieldsSlider;
     
-
-    public static UIManager Instance;
     public GameConstants GAME_CONSTANTS;
-    
-    private void Awake()
-    {
-        Instance = this;
-    }
-
+   
     private void Start()
     {
         UpdateScore(0);
