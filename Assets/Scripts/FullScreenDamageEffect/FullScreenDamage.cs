@@ -13,6 +13,10 @@ public class FullScreenDamage : MonoBehaviour
     [SerializeField] private ScriptableRendererFeature _fullScreenDamage;
     [SerializeField] private Material _material;
 
+    [Header("Colors")]
+    [SerializeField] private Color _shieldMaterialColor;
+    [SerializeField] private Color _healthMaterialColor;
+
     [Header("Intensity Stats")]
     [SerializeField] private float _voronoiIntensityStat = 2.5f;
     [SerializeField] private float _vignetteIntensityStat = 1.25f;
@@ -22,6 +26,7 @@ public class FullScreenDamage : MonoBehaviour
 
     private void Start()
     {
+        _material.color = _shieldMaterialColor;
         _fullScreenDamage.SetActive(false);
     }
 
@@ -45,6 +50,7 @@ public class FullScreenDamage : MonoBehaviour
 
     private void HandleOnCometReachPlayer(float damage)
     {
+        _material.color = GameManager.Instance.GetShields() > damage ? _shieldMaterialColor : _healthMaterialColor;
         RunHurt();
     }
 
