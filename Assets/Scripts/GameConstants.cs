@@ -28,6 +28,7 @@ public class GameConstants : ScriptableObject
     public float STAR_MIN_SPAWN_DISTANCE = 20f;
     public float STAR_MAX_SPAWN_DISTANCE = 100f;
 
+    public float PLAYER_MAX_HEALTH = 100f;
     public float PLAYER_SHIELDS_CAPACITY = 100f;
     public float SHIELD_REGEN_RATE = 0.1f;
 

@@ -38,7 +38,7 @@ public class Comet : MonoBehaviour
     {
         if (_rb.position.z > Camera.main.transform.position.z)
         {
-            OnCometReachPlayer?.Invoke(-CometDamage);
+            OnCometReachPlayer?.Invoke(CometDamage);
             Destroy(gameObject);
         }
     }

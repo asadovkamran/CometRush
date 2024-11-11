@@ -7,7 +7,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _timerText;
     [SerializeField] private Slider _shieldsSlider;
-    
+    [SerializeField] private Slider _healthSlider;
+
     public GameConstants GAME_CONSTANTS;
    
     private void Start()
@@ -38,9 +39,10 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score: " + score;
     }
 
-    public void UpdateShieldsUI(float value)
+    public void UpdateShieldsUI(float shieldsAmount, float healthAmount)
     {
-        _shieldsSlider.value = value / GAME_CONSTANTS.PLAYER_SHIELDS_CAPACITY;
+        _shieldsSlider.value = shieldsAmount / GAME_CONSTANTS.PLAYER_SHIELDS_CAPACITY;
+        _healthSlider.value = healthAmount / GAME_CONSTANTS.PLAYER_MAX_HEALTH;
     }
 
     private void UpdateTimer()

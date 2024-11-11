@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private float _shieldsCapacity;
+    [SerializeField] private float _health;
     [SerializeField] private float _difficulty = 0;
 
     public static GameManager Instance;
     public GameConstants GAME_CONSTANTS;
 
-    public static event Action<float> OnShieldsUpdated;
+    public static event Action<float, float> OnShieldsUpdated;
     public static event Action<float> OnScoreUpdated;
     public static event Action<int, float> OnGameOver;
 
@@ -26,19 +27,20 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _shieldsCapacity = GAME_CONSTANTS.PLAYER_SHIELDS_CAPACITY;
+        _health = GAME_CONSTANTS.PLAYER_MAX_HEALTH;
         InvokeRepeating("RegenerateShields", 2f, GAME_CONSTANTS.SHIELD_REGEN_RATE);
     }
 
     private void OnEnable()
     {
         HitDetection.OnCometHit += IncrementScore;
-        Comet.OnCometReachPlayer += UpdateShields;
+        Comet.OnCometReachPlayer += HandleOnCometReachPlayer;
     }
 
     private void OnDisable()
     {
         HitDetection.OnCometHit -= IncrementScore;
-        Comet.OnCometReachPlayer -= UpdateShields;
+        Comet.OnCometReachPlayer -= HandleOnCometReachPlayer;
     }
 
     private void Update()
@@ -48,24 +50,38 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
-        }
+        } 
+    }
 
-        if (_shieldsCapacity <= 0)
+    private void HandleOnCometReachPlayer(float damageAmount)
+    {
+        if (_health <= 0)
         {
             HandleGameOver();
         }
+
+        if (_shieldsCapacity < damageAmount)
+        {
+            _health -= damageAmount - _shieldsCapacity;
+            _shieldsCapacity = 0;
+        } else
+        {
+            _shieldsCapacity -= damageAmount;
+        }
+     
+        OnShieldsUpdated?.Invoke(_shieldsCapacity, _health);
     }
 
     public void UpdateShields(float amount)
     {
         _shieldsCapacity += amount;
-        OnShieldsUpdated?.Invoke(_shieldsCapacity);
+        
     }
 
     private void RegenerateShields()
     {
         _shieldsCapacity = Mathf.Clamp(_shieldsCapacity + 1, 0f, 100f);
-        OnShieldsUpdated?.Invoke(_shieldsCapacity);
+        OnShieldsUpdated?.Invoke(_shieldsCapacity, _health);
     }
 
     public float GetShields() { return _shieldsCapacity; }
