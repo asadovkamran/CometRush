@@ -62,8 +62,8 @@ public class GameManager : MonoBehaviour
 
         if (_shieldsCapacity < damageAmount)
         {
-            _shieldsCapacity = 0;
             _health -= damageAmount - _shieldsCapacity;
+            _shieldsCapacity = 0;
         } else
         {
             _shieldsCapacity -= damageAmount;
