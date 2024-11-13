@@ -5,13 +5,26 @@ using UnityEngine.SceneManagement;
 public class GameOverMenu : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private TextMeshProUGUI _hiscoreText;
     [SerializeField] private TextMeshProUGUI _timerText;
     [SerializeField] private GameObject _playerStats;
 
     private void Start()
     {
+        float hiScore = PlayerPrefs.GetFloat("HiScore", 0);
+        
         _playerStats = GameObject.Find("PlayerStats");
-        _scoreText.text = "Score: " + _playerStats.GetComponent<DontDestroyOnLoad>().GetScore().ToString();
+
+        float score = _playerStats.GetComponent<DontDestroyOnLoad>().GetScore();
+
+        if (score > hiScore)
+        {
+            PlayerPrefs.SetFloat("HiScore", score);
+            hiScore = PlayerPrefs.GetFloat("HiScore", 0);
+        }
+
+        _scoreText.text = "Score: " + score.ToString();
+        _hiscoreText.text = "Hi-score: " +hiScore.ToString();
 
         float time = _playerStats.GetComponent<DontDestroyOnLoad>().GetTime();
 
