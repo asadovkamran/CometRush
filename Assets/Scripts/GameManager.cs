@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Score = 0;
         _shieldsCapacity = GAME_CONSTANTS.PLAYER_SHIELDS_CAPACITY;
         _health = GAME_CONSTANTS.PLAYER_MAX_HEALTH;
         InvokeRepeating("RegenerateShields", 2f, GAME_CONSTANTS.SHIELD_REGEN_RATE);
