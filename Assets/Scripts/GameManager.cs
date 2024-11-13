@@ -35,12 +35,14 @@ public class GameManager : MonoBehaviour
     {
         HitDetection.OnCometHit += IncrementScore;
         Comet.OnCometReachPlayer += HandleOnCometReachPlayer;
+        HealthRestoreItem.OnHealthPickUp += HandleOnHealthPickUp;
     }
 
     private void OnDisable()
     {
         HitDetection.OnCometHit -= IncrementScore;
         Comet.OnCometReachPlayer -= HandleOnCometReachPlayer;
+        HealthRestoreItem.OnHealthPickUp -= HandleOnHealthPickUp;
     }
 
     private void Update()
@@ -72,6 +74,16 @@ public class GameManager : MonoBehaviour
         OnShieldsUpdated?.Invoke(_shieldsCapacity, _health);
     }
 
+    private void HandleOnHealthPickUp()
+    {
+        if (_health < GAME_CONSTANTS.PLAYER_MAX_HEALTH)
+        {
+            _health += GAME_CONSTANTS.HEALTH_ITEM_HEAL_AMOUNT;
+            _health = Math.Clamp(_health, 0, GAME_CONSTANTS.PLAYER_MAX_HEALTH);
+            OnShieldsUpdated?.Invoke(_shieldsCapacity, _health);
+        }
+    }
+
     public void UpdateShields(float amount)
     {
         _shieldsCapacity += amount;
@@ -85,6 +97,7 @@ public class GameManager : MonoBehaviour
     }
 
     public float GetShields() { return _shieldsCapacity; }
+    public float GetHealth() { return _health; }
 
     private void HandleGameOver()
     {

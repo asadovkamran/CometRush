@@ -5,11 +5,9 @@ using System;
 public class HitDetection : MonoBehaviour
 {
     public LayerMask Layer;
-   
 
     public static event Action<GameObject> OnCometHit;
 
-    // Update is called once per frame
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
