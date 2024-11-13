@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GameConstants", menuName = "Game/Constants")]
@@ -33,4 +34,7 @@ public class GameConstants : ScriptableObject
     public float SHIELD_REGEN_RATE = 0.1f;
 
     public float DIFFICULTY_COEFFICIENT = 0.005f;
+
+    public float HEALTH_DROP_PROBABILITY = 10f; // 0 - 100%
+    public float HEALTH_ITEM_HEAL_AMOUNT = 20f;
 }
