@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+//todo: get rid of global non-readonly state
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private float _shieldsCapacity;
