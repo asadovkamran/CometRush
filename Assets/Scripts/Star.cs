@@ -7,13 +7,10 @@ public class Star : MonoBehaviour
     public ObjectPool Pool;
 
     private Rigidbody _rb;
-    
+
     private void Start()
     {
-        _rb = GetComponent<Rigidbody>();
         Pool = GameObject.Find("StarsPool").GetComponent<ObjectPool>();
-
-        SetInitialPosition();
     }
 
     private void SetInitialPosition()

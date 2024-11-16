@@ -19,7 +19,15 @@ public class Comet : MonoBehaviour
     private SphereCollider _sphereCollider;
 
     private void Start()
-    {  
+    {
+        Initialize();
+
+        HandleSpawn();
+        HandlePushTowardsPlayer();
+    }
+
+    private void Initialize()
+    {
         _rb = GetComponent<Rigidbody>();
         _filter = GetComponent<MeshFilter>();
 
@@ -28,10 +36,6 @@ public class Comet : MonoBehaviour
 
         Mesh currentMesh = Meshes[UnityEngine.Random.Range(0, Meshes.Length)];
         _filter.mesh = currentMesh;
-
-
-        HandleSpawn();
-        HandlePushTowardsPlayer();
     }
 
     private void FixedUpdate()
