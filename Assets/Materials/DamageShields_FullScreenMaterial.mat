@@ -45,5 +45,5 @@ Material:
     - _VoronoiScale: 15
     - _VoronoiSpeed: 7
     m_Colors:
-    - _Color: {r: 0, g: 0.5647059, b: 1, a: 0}
+    - _Color: {r: 0.9056604, g: 0.12388753, b: 0.12388753, a: 0}
   m_BuildTextureStacks: []
