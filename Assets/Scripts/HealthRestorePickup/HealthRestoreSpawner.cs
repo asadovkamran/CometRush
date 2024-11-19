@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class HealthRestoreSpawner : MonoBehaviour
 {
+    [SerializeField] private GameStatsSO _gameStatsSO;
     [SerializeField] private GameConstants GAME_CONSTANTS;
     [SerializeField] private GameObject _healthImg;
 
@@ -23,7 +24,7 @@ public class HealthRestoreSpawner : MonoBehaviour
 
     private void HandleHit(GameObject obj)
     {
-        if (CheckDropProbability(GAME_CONSTANTS.HEALTH_DROP_PROBABILITY) && GameManager.Instance.GetHealth()
+        if (CheckDropProbability(GAME_CONSTANTS.HEALTH_DROP_PROBABILITY) && _gameStatsSO.CurrentHealth
             < GAME_CONSTANTS.PLAYER_MAX_HEALTH)
         {
             Vector3 targetPosition = Camera.main.WorldToScreenPoint(obj.transform.position);

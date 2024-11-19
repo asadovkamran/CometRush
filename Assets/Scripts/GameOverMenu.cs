@@ -11,27 +11,27 @@ public class GameOverMenu : MonoBehaviour
 
     private void Start()
     {
-        float hiScore = PlayerPrefs.GetFloat("HiScore", 0);
+        //float hiScore = PlayerPrefs.GetFloat("HiScore", 0);
         
-        _playerStats = GameObject.Find("PlayerStats");
+        //_playerStats = GameObject.Find("PlayerStats");
 
-        float score = _playerStats.GetComponent<DontDestroyOnLoad>().GetScore();
+        //float score = _playerStats.GetComponent<DontDestroyOnLoad>().GetScore();
 
-        if (score > hiScore)
-        {
-            PlayerPrefs.SetFloat("HiScore", score);
-            hiScore = PlayerPrefs.GetFloat("HiScore", 0);
-        }
+        //if (score > hiScore)
+        //{
+        //    PlayerPrefs.SetFloat("HiScore", score);
+        //    hiScore = PlayerPrefs.GetFloat("HiScore", 0);
+        //}
 
-        _scoreText.text = "Score: " + score.ToString();
-        _hiscoreText.text = "Hi-score: " +hiScore.ToString();
+        //_scoreText.text = "Score: " + score.ToString();
+        //_hiscoreText.text = "Hi-score: " +hiScore.ToString();
 
-        float time = _playerStats.GetComponent<DontDestroyOnLoad>().GetTime();
+        //float time = _playerStats.GetComponent<DontDestroyOnLoad>().GetTime();
 
-        int minutes = Mathf.FloorToInt(time / 60F);
-        int seconds = Mathf.FloorToInt(time % 60F);
+        //int minutes = Mathf.FloorToInt(time / 60F);
+        //int seconds = Mathf.FloorToInt(time % 60F);
 
-        _timerText.text = "Time: " + string.Format("{0:00}:{1:00}", minutes, seconds);
+        //_timerText.text = "Time: " + string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     public void OnRestartButton()

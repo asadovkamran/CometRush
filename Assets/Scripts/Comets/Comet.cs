@@ -13,6 +13,8 @@ public class Comet : MonoBehaviour
 
     public static event Action<float> OnCometReachPlayer;
 
+    [SerializeField] private GameStatsSO _gameStatsSO;
+    [SerializeField] private GameOverSO _gameOverSO;
     private Vector3 _cometTarget;
     private Rigidbody _rb;
     private MeshFilter _filter;
@@ -43,7 +45,29 @@ public class Comet : MonoBehaviour
         if (_rb.position.z > Camera.main.transform.position.z)
         {
             OnCometReachPlayer?.Invoke(CometDamage);
+            HandleCometReachPlayer();
             Destroy(gameObject);
+        }
+    }
+
+    private void HandleCometReachPlayer()
+    {
+        if (_gameStatsSO.CurrentShields < CometDamage)
+        {
+            _gameStatsSO.CurrentHealth = Mathf.Clamp(_gameStatsSO.CurrentHealth - (CometDamage - _gameStatsSO.CurrentShields), 0, _gameStatsSO.GetMaxHealth());
+            _gameStatsSO.CurrentShields = 0;
+        }
+        else
+        {
+            _gameStatsSO.CurrentShields = Mathf.Clamp(_gameStatsSO.CurrentShields - CometDamage, 0, _gameStatsSO.GetMaxShields());
+        }
+
+        _gameStatsSO.UpdateHealth();
+        _gameStatsSO.UpdateShields();
+
+        if (_gameStatsSO.CurrentHealth <= 0)
+        {
+            _gameOverSO.OnPlayerDead();
         }
     }
 

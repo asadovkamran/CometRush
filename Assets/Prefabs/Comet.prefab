@@ -134,6 +134,8 @@ MonoBehaviour:
   - {fileID: -2432090755550338912, guid: 0dc054e03d7cf084b90c6e75474fbaf9, type: 3}
   Explosions:
   - {fileID: 4812739489763158990, guid: c91a5511222ab90458b144a364372fc9, type: 3}
+  _gameStatsSO: {fileID: 11400000, guid: 616c9095629bcd341ad8d6023d70a763, type: 2}
+  _gameOverSO: {fileID: 11400000, guid: a41dfd66a36683c4baa00811a7b912e0, type: 2}
 --- !u!114 &-2616881035369935064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,3 +148,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71732b9fa3be64d48aad2944b059b709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rb: {fileID: 428112997220120485}

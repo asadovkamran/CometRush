@@ -4,6 +4,7 @@ using System;
 
 public class HitDetection : MonoBehaviour
 {
+    [SerializeField] private GameStatsSO _gameStatsSO;
     public LayerMask Layer;
 
     public static event Action<GameObject> OnCometHit;
@@ -16,6 +17,7 @@ public class HitDetection : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, Layer))
             {
+                _gameStatsSO.IncrementScore();
                 OnCometHit?.Invoke(hit.transform.gameObject);
                 // vibrate android device
                 Vibration.Vibrate(25, 255);

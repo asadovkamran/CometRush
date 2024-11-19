@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class HealthRestoreItem : MonoBehaviour
 {
-    [SerializeField] private Transform _moveTargetTransform;
+    private Transform _moveTargetTransform;
 
     public static event Action OnHealthPickUp;
     private void OnEnable()
     {
+        _moveTargetTransform = GameObject.Find("HealthIcon").gameObject.transform;
         transform.localScale = Vector3.zero;
         transform.LeanScale(Vector3.one, 0.1f).setOnComplete(AnimationPhaseTwo);     
     }
