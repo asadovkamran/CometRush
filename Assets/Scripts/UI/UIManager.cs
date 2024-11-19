@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject[] _uiStateObjects;
     [SerializeField] private GameObject _settingsMenuObject;
     [SerializeField] private GameOverSO _gameOverSO;
+    [SerializeField] private GameStatsSO _gameStatsSO;
 
     private void Start()
     {
@@ -37,6 +38,7 @@ public class UIManager : MonoBehaviour
 
     public void OnPlayButton()
     {
+        _gameStatsSO.ResetGameStats();
         HandlePlay();
     }
 

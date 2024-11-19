@@ -10,12 +10,18 @@ public class Shieldbar : MonoBehaviour
 
     private void OnEnable()
     {
+        Initialize();
         _gameStatsSO.CurrentShieldsChangeEvent.AddListener(HandleShieldsChangeEvent);
     }
 
     private void OnDisable()
     {
         _gameStatsSO.CurrentShieldsChangeEvent.RemoveListener(HandleShieldsChangeEvent);
+    }
+
+    private void Initialize()
+    {
+        HandleShieldsChangeEvent(_gameStatsSO.CurrentShields);
     }
 
     private void HandleShieldsChangeEvent(float shields)

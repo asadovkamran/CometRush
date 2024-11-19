@@ -10,12 +10,18 @@ public class Healthbar : MonoBehaviour
 
     private void OnEnable()
     {
+        Initialize();
         _gameStatsSO.CurrentHealthChangeEvent.AddListener(HandleHealthChangeEvent);
     }
 
     private void OnDisable()
     {
         _gameStatsSO.CurrentHealthChangeEvent.RemoveListener(HandleHealthChangeEvent);
+    }
+
+    private void Initialize()
+    {
+        HandleHealthChangeEvent(_gameStatsSO.CurrentHealth);
     }
 
     private void HandleHealthChangeEvent(float health)

@@ -21,6 +21,7 @@ public class GameplayUI : MonoBehaviour
 
     private void OnEnable()
     {
+        UpdateScoreText(_gameStatsSO.Score);
         _gameStatsSO.ScoreChangeEvent.AddListener(UpdateScoreText);
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,17 +29,30 @@ public class GameStatsSO : ScriptableObject
 
         CurrentShieldsChangeEvent ??= new UnityEvent<float>();
 
+        ResetGameStats();
+    }
+
+    public void ResetGameStats()
+    {
         Score = 0;
         ElapsedTime = 0;
         _maxHealth = GAME_CONSTANTS.PLAYER_MAX_HEALTH;
         _maxShields = GAME_CONSTANTS.PLAYER_SHIELDS_CAPACITY;
         CurrentHealth = _maxHealth;
         CurrentShields = _maxShields;
+        UpdateHealth();
+        UpdateShields();
+        UpdateScore();
     }
 
     public void IncrementScore()
     {
         Score++;
+        UpdateScore();
+    }
+
+    public void UpdateScore()
+    {
         ScoreChangeEvent?.Invoke(Score);
     }
 
