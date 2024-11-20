@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d123908e3a2295c4c9a58c67ac86c41d, type: 3}
+  m_Name: GameStatsSO
+  m_EditorClassIdentifier: 
+  GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
+  Score: 0
+  CurrentHealth: 0
+  CurrentShields: 0
+  ScoreChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  CurrentHealthChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  CurrentShieldsChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []

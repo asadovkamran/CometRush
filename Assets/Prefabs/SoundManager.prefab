@@ -308,6 +308,12 @@ MonoBehaviour:
   _explosionSoundClip: {fileID: 8300000, guid: c755943a810694349b743fc20b3072c1, type: 3}
   _audioMixer: {fileID: 24100000, guid: e7bba9f7959f5dc4eabdc3780fc7e2e9, type: 2}
   _audioMixerGroup: {fileID: 24300002, guid: e7bba9f7959f5dc4eabdc3780fc7e2e9, type: 2}
+  _backgroundMusicAudioSource: {fileID: 869271067056084128}
+  _backgroundTracks:
+  - {fileID: 8300000, guid: 8b61a6fe5c822c8419a70e0d744593e7, type: 3}
+  - {fileID: 8300000, guid: 0c695ec9a1a4eab4f9753993a5e0c1b7, type: 3}
+  - {fileID: 8300000, guid: e43617daf34b5b54595b1a1adf7bf341, type: 3}
+  - {fileID: 8300000, guid: 4b6f4f3019d9d7f4a822f2ac7f07e6d0, type: 3}
   _masterVolumeSlider: {fileID: 0}
 --- !u!82 &869271067056084128
 AudioSource:
@@ -321,10 +327,10 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: e7bba9f7959f5dc4eabdc3780fc7e2e9,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 8b61a6fe5c822c8419a70e0d744593e7, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

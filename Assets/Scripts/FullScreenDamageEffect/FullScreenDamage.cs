@@ -5,6 +5,8 @@ using UnityEngine.Rendering.Universal;
 
 public class FullScreenDamage : MonoBehaviour
 {
+    [SerializeField] private GameStatsSO _gameStatsSO;
+
     [Header("Time Stats")]
     [SerializeField] private float _hurtDisplayTime = 1.5f;
     [SerializeField] private float _hurtFadeOutTime = 0.5f;
@@ -50,7 +52,7 @@ public class FullScreenDamage : MonoBehaviour
 
     private void HandleOnCometReachPlayer(float damage)
     {
-        _material.color = GameManager.Instance.GetShields() > damage ? _shieldMaterialColor : _healthMaterialColor;
+        _material.color = _gameStatsSO.CurrentShields > damage ? _shieldMaterialColor : _healthMaterialColor;
         RunHurt();
     }
 
