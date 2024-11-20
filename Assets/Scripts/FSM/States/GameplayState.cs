@@ -1,15 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameplayState : IState
 {
-    private UIManager _owner;
-    private GameObject _targetUiObject;
+    private readonly GameObject _targetUiObject;
 
-    public GameplayState(UIManager owner, GameObject targetUiObject)
+    public GameplayState(GameObject targetUiObject)
     {
-        _owner = owner;
         _targetUiObject = targetUiObject;
     }
 

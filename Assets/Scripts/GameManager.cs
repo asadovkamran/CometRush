@@ -1,7 +1,4 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 //todo: get rid of global non-readonly state
@@ -13,8 +10,6 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
     public GameConstants GAME_CONSTANTS;
-
-
 
     private void Awake()
     {

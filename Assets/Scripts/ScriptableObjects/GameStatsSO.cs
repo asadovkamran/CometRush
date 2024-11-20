@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,6 +17,7 @@ public class GameStatsSO : ScriptableObject
     public UnityEvent<float> ScoreChangeEvent;
     public UnityEvent<float> CurrentHealthChangeEvent;
     public UnityEvent<float> CurrentShieldsChangeEvent;
+    public UnityEvent GamePausedEvent;
 
     private void OnEnable()
     {
@@ -28,6 +26,8 @@ public class GameStatsSO : ScriptableObject
         CurrentHealthChangeEvent ??= new UnityEvent<float>();
 
         CurrentShieldsChangeEvent ??= new UnityEvent<float>();
+
+        GamePausedEvent ??= new UnityEvent();
 
         ResetGameStats();
     }
@@ -63,6 +63,11 @@ public class GameStatsSO : ScriptableObject
 
     public void UpdateShields() { 
         CurrentShieldsChangeEvent?.Invoke(CurrentShields);
+    }
+
+    public void UpdateGameplayUI()
+    {
+        GamePausedEvent?.Invoke();
     }
 
     public float GetMaxHealth()

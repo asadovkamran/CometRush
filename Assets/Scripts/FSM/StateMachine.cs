@@ -1,28 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
-
 public class StateMachine
 {
-    private IState _currenState;
+    private IState _currentState;
     private States _stateName;
 
     public void ChangeState(IState newState, States name) 
     {
-        if (_currenState != null)
-        {
-            _currenState.Exit();
-        }
+        _currentState?.Exit();
 
-        _currenState = newState;
+        _currentState = newState;
         _stateName = name;
-        _currenState.Enter();
+        _currentState.Enter();
     }
 
     public void Update()
     {
-        _currenState?.Execute();
+        _currentState?.Execute();
     }
 
     public States GetCurrentState()

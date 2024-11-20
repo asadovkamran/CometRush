@@ -1,7 +1,5 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,7 +11,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        _stateMachine.ChangeState(new MainMenuState(this, _uiStateObjects[0]), States.MainMenu);
+        _stateMachine.ChangeState(new MainMenuState(_uiStateObjects[0]), States.MainMenu);
     }
 
     private void Update()
@@ -33,7 +31,7 @@ public class UIManager : MonoBehaviour
 
     private void HandlePlayerDeadEvent()
     {
-        _stateMachine.ChangeState(new GameOverState(this, _uiStateObjects[2]), States.GameOver);
+        _stateMachine.ChangeState(new GameOverState(_uiStateObjects[2]), States.GameOver);
     }
 
     public void OnPlayButton()
@@ -54,7 +52,7 @@ public class UIManager : MonoBehaviour
 
     private void HandlePlay()
     {
-        _stateMachine.ChangeState(new GameplayState(this, _uiStateObjects[1]), States.Gameplay);
+        _stateMachine.ChangeState(new GameplayState(_uiStateObjects[1]), States.Gameplay);
         SceneManager.LoadScene(1);
     }
 
@@ -69,6 +67,18 @@ public class UIManager : MonoBehaviour
         {
             _uiStateObjects[0].SetActive(!_uiStateObjects[0].activeSelf);
         }
+
+        if (_stateMachine.GetCurrentState() == States.Gameplay)
+        {
+            ToggleTimeScale();
+            _gameStatsSO.UpdateGameplayUI();
+        }
+
         _settingsMenuObject.SetActive(!_settingsMenuObject.activeSelf);
+    }
+
+    private void ToggleTimeScale()
+    {
+        Time.timeScale = 1 - Time.timeScale;
     }
 }

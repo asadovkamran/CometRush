@@ -1,15 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameOverState : IState
 {
-    private UIManager _owner;
-    private GameObject _targetUiObject;
+    private readonly GameObject _targetUiObject;
 
-    public GameOverState(UIManager owner, GameObject targetUiObject)
+    public GameOverState(GameObject targetUiObject)
     {
-        _owner = owner;
         _targetUiObject = targetUiObject;
     }
 

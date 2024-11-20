@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -42,6 +40,6 @@ public class GameplayUI : MonoBehaviour
         int minutes = Mathf.FloorToInt(elapsedTime / 60F);
         int seconds = Mathf.FloorToInt(elapsedTime % 60F);
 
-        _timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        _timerText.text = $"{minutes:00}:{seconds:00}";
     }
 }

@@ -1,16 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenuState : IState
 {
-    private UIManager _owner;
-    private GameObject _targetUiObject;
+    private readonly GameObject _targetUiObject;
 
-    public MainMenuState(UIManager owner, GameObject targetUiObject)
+    public MainMenuState(GameObject targetUiObject)
     {
-        _owner = owner;
         _targetUiObject = targetUiObject;
     }
 
