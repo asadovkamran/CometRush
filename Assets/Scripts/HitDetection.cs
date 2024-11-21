@@ -5,6 +5,7 @@ using System;
 public class HitDetection : MonoBehaviour
 {
     [SerializeField] private GameStatsSO _gameStatsSO;
+    [SerializeField] private AbilitySystem _abilitySystem;
     public LayerMask Layer;
 
     public static event Action<GameObject> OnCometHit;
@@ -18,6 +19,7 @@ public class HitDetection : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, Layer))
             {
                 _gameStatsSO.IncrementScore();
+                _abilitySystem.OnAsteroidDestroyed(hit.transform.gameObject);
                 OnCometHit?.Invoke(hit.transform.gameObject);
                 // vibrate android device
                 Vibration.Vibrate(25, 255);
