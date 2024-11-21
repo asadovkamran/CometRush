@@ -19,7 +19,6 @@ public class HitDetection : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, Layer))
             {
                 _gameStatsSO.IncrementScore();
-                _abilitySystem.OnAsteroidDestroyed(hit.transform.gameObject);
                 OnCometHit?.Invoke(hit.transform.gameObject);
                 // vibrate android device
                 Vibration.Vibrate(25, 255);

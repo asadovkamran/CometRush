@@ -15,15 +15,19 @@ public class Comet : MonoBehaviour
 
     [SerializeField] private GameStatsSO _gameStatsSO;
     [SerializeField] private GameOverSO _gameOverSO;
+    [SerializeField] private MeshRenderer _meshRenderer;
+    [SerializeField] private Material _material;
+
     private Vector3 _cometTarget;
     private Rigidbody _rb;
     private MeshFilter _filter;
     private SphereCollider _sphereCollider;
 
+
     private void Start()
     {
         Initialize();
-
+        SetMaterial();
         HandleSpawn();
         HandlePushTowardsPlayer();
     }
@@ -119,5 +123,10 @@ public class Comet : MonoBehaviour
             Instantiate(Explosions[UnityEngine.Random.Range(0, Explosions.Length)], transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+    }
+
+    public void SetMaterial()
+    {
+        if (_material != null) _meshRenderer.material = _material;
     }
 }
