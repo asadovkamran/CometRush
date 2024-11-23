@@ -1,6 +1,8 @@
 using UnityEngine;
 using CometRush.Enums;
 using System;
+using System.Collections;
+using UnityEngine.Rendering;
 
 public class Comet : MonoBehaviour
 {
@@ -23,6 +25,7 @@ public class Comet : MonoBehaviour
     private Rigidbody _rb;
     private MeshFilter _filter;
     private SphereCollider _sphereCollider;
+    private bool isElectricuted = false;
 
 
     private void Start()
@@ -117,13 +120,15 @@ public class Comet : MonoBehaviour
         _rb.AddForce(force, ForceMode.Impulse);
     }
 
+    //todo: this logic should be moved to comet spawner
     private void HandleHit(GameObject obj)
     {
-        if (obj != null && GameObject.ReferenceEquals(obj, gameObject))
+        if (obj != null && GameObject.ReferenceEquals(obj, gameObject) && !isElectricuted)
         {
-            Instantiate(Explosions[UnityEngine.Random.Range(0, Explosions.Length)], transform.position, Quaternion.identity);
+            Instantiate(Explosions[UnityEngine.Random.Range(0, Explosions.Length)], transform.position,
+                Quaternion.identity);
 
-            _cometConfigSO.OnCometHit(Type);
+            _cometConfigSO.OnCometHit(Type, obj);
 
             Destroy(gameObject);
         }
@@ -134,8 +139,28 @@ public class Comet : MonoBehaviour
         _meshRenderer.material = material;
     }
 
+    public void Destroy()
+    {
+        Instantiate(Explosions[UnityEngine.Random.Range(0, Explosions.Length)], transform.position,
+            Quaternion.identity);
+        Destroy(gameObject);
+    }
+
     public void Freeze()
     {
         _rb.velocity = Vector3.zero;
+    }
+
+    public void Electricute()
+    {
+        isElectricuted = true;
+        SetMaterial(_cometConfigSO.ElectroCometMaterial);
+        Destroy();
+    }
+
+    IEnumerator DestroyWithDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        Destroy();
     }
 }

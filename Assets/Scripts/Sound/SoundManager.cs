@@ -114,10 +114,10 @@ public class SoundManager : MonoBehaviour
         _backgroundMusicAudioSource.Play();
     }
 
-    private void PlayNextTrack(int currenTrack)
+    private void PlayNextTrack(int currentTrack)
     {
         _currentTrack++;
-        if (currenTrack == _backgroundTracks.Length)
+        if (currentTrack == _backgroundTracks.Length - 1)
         {
             _currentTrack = 0;
         }

@@ -7,23 +7,33 @@ using UnityEngine;
 
 public class CometSpawner : MonoBehaviour
 {
-    [SerializeField] private CometConfigSO _cometConfigSO;
-    [SerializeField] private Transform _defaultCometTransform;
-    [SerializeField] private Transform _iceCometTransform;
-    private float _iceCometSpawnProbability;    
-
-    public static CometSpawner Instance { get; private set; }
-    
+    [Header("Game Constants")]
     public GameConstants GAME_CONSTANTS;
+
+    [Header("Comet Configs")]
+    [SerializeField] private CometConfigSO _cometConfigSO;
+
+    [Header("Default Comet")]
+    [SerializeField] private Transform _defaultCometTransform;
+
+    [Header("Ice Comet")]
+    [SerializeField] private Transform _iceCometTransform;
+    private float _iceCometSpawnProbability;
+
+    [Header("Electro Comet")]
+    [SerializeField] private Transform _electroCometTransform;
+
+    [SerializeField] private float _delayBetweenDestruction = 0.1f;
+    private float _electroCometSpawnProbability;
+    
+    
 
     public List<Transform> ActiveComets = new List<Transform>();
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
-
         _iceCometSpawnProbability = _cometConfigSO.IceCometSpawnProbabilty;
+        _electroCometSpawnProbability = _cometConfigSO.ElectroCometSpawnProbabilty;
     }
 
     private void OnEnable()
@@ -66,22 +76,31 @@ public class CometSpawner : MonoBehaviour
             return Instantiate(_iceCometTransform);
         }
 
+        if (Random.value < _electroCometSpawnProbability)
+        {
+            return Instantiate(_electroCometTransform);
+        }
+
         return Instantiate(_defaultCometTransform);
     }
 
-    private void HandleCometHit(CometType type)
+    private void HandleCometHit(CometType type, GameObject hitObject)
     {
         switch (type)
         {
             case CometType.Ice:
                 FreezeAllActiveComets();
                 break;
+            case CometType.Electro:
+                StartCoroutine(CauseChainLightning(hitObject));
+                
+                break;
         }
     }
 
     private void FreezeAllActiveComets()
     {
-        var activeComets = ActiveComets.Where(comet => !comet.IsDestroyed()).ToList();
+        var activeComets = GetActiveComets();
 
         foreach (var comet in activeComets)
         {
@@ -89,5 +108,28 @@ public class CometSpawner : MonoBehaviour
             obj.Freeze();
             obj.SetMaterial(_cometConfigSO.IceCometMaterial);
         }
+    }
+
+    IEnumerator CauseChainLightning(GameObject hitObject)
+    {
+        List<GameObject> destroyableObjects = GameObject.FindGameObjectsWithTag("Comet").ToList();
+
+        destroyableObjects.Remove(hitObject);
+
+        GameObject currentObject = hitObject;
+
+        var sortedDestroyableObjects = destroyableObjects
+            .OrderBy(obj => Vector3.Distance(currentObject.transform.position, obj.transform.position));
+
+        foreach (var obj in sortedDestroyableObjects)
+        {
+          obj.GetComponent<Comet>().Electricute();
+          yield return new WaitForSeconds(_delayBetweenDestruction);
+        }
+    }
+
+    private List<Transform> GetActiveComets()
+    {
+        return ActiveComets.Where(comet => !comet.IsDestroyed()).ToList();
     }
 }

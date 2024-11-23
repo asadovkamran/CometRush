@@ -24,3 +24,8 @@ MonoBehaviour:
     type: 3}
   IceCometExplosion: {fileID: 0}
   IceCometSpawnProbabilty: 0.05
+  ElectroCometTransform: {fileID: 0}
+  ElectroCometMaterial: {fileID: -876546973899608171, guid: b16776f1c3f1f164ab69977294e95fde,
+    type: 3}
+  ElectroCometExplosion: {fileID: 0}
+  ElectroCometSpawnProbabilty: 0.1

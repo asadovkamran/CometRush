@@ -5,7 +5,7 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "CometConfigSO", menuName = "Scriptable Objects/CometConfigSO")]
 public class CometConfigSO : ScriptableObject
 {
-    public UnityEvent<CometType> CometHitEvent;
+    public UnityEvent<CometType, GameObject> CometHitEvent;
 
     [Header("Default Comet Configs")]
     public Transform DefaultCometTransform;
@@ -18,13 +18,14 @@ public class CometConfigSO : ScriptableObject
     public GameObject IceCometExplosion;
     public float IceCometSpawnProbabilty = 0.05f;
 
-    private void Awake()
-    {
+    [Header("Electro Comet Configs")]
+    public Transform ElectroCometTransform;
+    public Material ElectroCometMaterial;
+    public GameObject ElectroCometExplosion;
+    public float ElectroCometSpawnProbabilty = 0.025f;
 
-    }
-
-    public void OnCometHit(CometType type)
+    public void OnCometHit(CometType type, GameObject hitObject)
     {
-        CometHitEvent?.Invoke(type);
+        CometHitEvent?.Invoke(type, hitObject);
     }
 }
