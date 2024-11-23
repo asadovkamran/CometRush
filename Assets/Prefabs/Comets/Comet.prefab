@@ -136,8 +136,10 @@ MonoBehaviour:
   - {fileID: 4812739489763158990, guid: c91a5511222ab90458b144a364372fc9, type: 3}
   _gameStatsSO: {fileID: 11400000, guid: 616c9095629bcd341ad8d6023d70a763, type: 2}
   _gameOverSO: {fileID: 11400000, guid: a41dfd66a36683c4baa00811a7b912e0, type: 2}
+  _cometConfigSO: {fileID: 11400000, guid: 2a3ed430dbcaf8645bdba94ffcbd5c52, type: 2}
   _meshRenderer: {fileID: 6016194941924350417}
-  _material: {fileID: 0}
+  _material: {fileID: -876546973899608171, guid: 4e76e4da000792b49b4776875927312c,
+    type: 3}
 --- !u!114 &-2616881035369935064
 MonoBehaviour:
   m_ObjectHideFlags: 0

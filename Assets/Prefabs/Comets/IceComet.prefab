@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 574307247276510346}
   - component: {fileID: 690563152622832452}
   m_Layer: 6
-  m_Name: CometFreeze
+  m_Name: IceComet
   m_TagString: Comet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,8 +136,10 @@ MonoBehaviour:
   - {fileID: 4812739489763158990, guid: c91a5511222ab90458b144a364372fc9, type: 3}
   _gameStatsSO: {fileID: 11400000, guid: 616c9095629bcd341ad8d6023d70a763, type: 2}
   _gameOverSO: {fileID: 11400000, guid: a41dfd66a36683c4baa00811a7b912e0, type: 2}
+  _cometConfigSO: {fileID: 11400000, guid: 2a3ed430dbcaf8645bdba94ffcbd5c52, type: 2}
   _meshRenderer: {fileID: 2118676275810693673}
-  _material: {fileID: 0}
+  _material: {fileID: -876546973899608171, guid: e33862653c1fdee4585659ab1e8abefe,
+    type: 3}
 --- !u!114 &690563152622832452
 MonoBehaviour:
   m_ObjectHideFlags: 0

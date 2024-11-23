@@ -524,7 +524,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f7199ede97d504b997ebdb2a4eda7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Comet: {fileID: 5615626148539670501, guid: 10dcc198c0095834dbe603396eaf3553, type: 3}
+  _cometConfigSO: {fileID: 11400000, guid: 2a3ed430dbcaf8645bdba94ffcbd5c52, type: 2}
+  _defaultCometTransform: {fileID: 5615626148539670501, guid: 10dcc198c0095834dbe603396eaf3553,
+    type: 3}
+  _iceCometTransform: {fileID: 6957834702297861145, guid: d067d6caa1797174284f983145e40f0c,
+    type: 3}
   GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
   ActiveComets: []
 --- !u!4 &427191914
