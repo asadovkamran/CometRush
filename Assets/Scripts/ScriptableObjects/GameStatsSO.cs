@@ -6,7 +6,8 @@ public class GameStatsSO : ScriptableObject
 {
     [SerializeField] private GameConstants GAME_CONSTANTS;
 
-    public float Score;
+    public int Score;
+    public int HiScore;
     public float CurrentHealth;
     public float CurrentShields;
     public float ElapsedTime;
