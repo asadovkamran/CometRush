@@ -1,4 +1,4 @@
 namespace CometRush.Enums
 {
-    public enum CometType { small, medium, large };
+    public enum CometType { Default, Ice, Electro };
 }

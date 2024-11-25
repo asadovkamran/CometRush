@@ -5,6 +5,7 @@ using System;
 public class HitDetection : MonoBehaviour
 {
     [SerializeField] private GameStatsSO _gameStatsSO;
+    [SerializeField] private AbilitySystem _abilitySystem;
     public LayerMask Layer;
 
     public static event Action<GameObject> OnCometHit;

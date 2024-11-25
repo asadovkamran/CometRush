@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2992868611528541634
+--- !u!1 &3958283256861019091
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,26 +8,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5615626148539670501}
-  - component: {fileID: 4615087657945068883}
-  - component: {fileID: 6016194941924350417}
-  - component: {fileID: 428112997220120485}
-  - component: {fileID: 8446242656508206878}
-  - component: {fileID: -2616881035369935064}
+  - component: {fileID: 6957834702297861145}
+  - component: {fileID: 8059718892970265818}
+  - component: {fileID: 2118676275810693673}
+  - component: {fileID: 6646080394969780265}
+  - component: {fileID: 574307247276510346}
+  - component: {fileID: 690563152622832452}
   m_Layer: 6
-  m_Name: Comet
+  m_Name: IceComet
   m_TagString: Comet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5615626148539670501
+--- !u!4 &6957834702297861145
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2992868611528541634}
+  m_GameObject: {fileID: 3958283256861019091}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -36,21 +36,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4615087657945068883
+--- !u!33 &8059718892970265818
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2992868611528541634}
+  m_GameObject: {fileID: 3958283256861019091}
   m_Mesh: {fileID: -2432090755550338912, guid: a9986cf529ade354b82fa777884e07ca, type: 3}
---- !u!23 &6016194941924350417
+--- !u!23 &2118676275810693673
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2992868611528541634}
+  m_GameObject: {fileID: 3958283256861019091}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: -876546973899608171, guid: e33862653c1fdee4585659ab1e8abefe, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,13 +86,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &428112997220120485
+--- !u!54 &6646080394969780265
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2992868611528541634}
+  m_GameObject: {fileID: 3958283256861019091}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -113,13 +113,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8446242656508206878
+--- !u!114 &574307247276510346
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2992868611528541634}
+  m_GameObject: {fileID: 3958283256861019091}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bfb78af65454ea4b9d7f920eaec9f18, type: 3}
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
   Speed: 15
-  Type: 0
+  Type: 1
   CometDamage: 20
   Meshes:
   - {fileID: -2432090755550338912, guid: a9986cf529ade354b82fa777884e07ca, type: 3}
@@ -136,16 +136,20 @@ MonoBehaviour:
   - {fileID: 4812739489763158990, guid: c91a5511222ab90458b144a364372fc9, type: 3}
   _gameStatsSO: {fileID: 11400000, guid: 616c9095629bcd341ad8d6023d70a763, type: 2}
   _gameOverSO: {fileID: 11400000, guid: a41dfd66a36683c4baa00811a7b912e0, type: 2}
---- !u!114 &-2616881035369935064
+  _cometConfigSO: {fileID: 11400000, guid: 2a3ed430dbcaf8645bdba94ffcbd5c52, type: 2}
+  _meshRenderer: {fileID: 2118676275810693673}
+  _material: {fileID: -876546973899608171, guid: e33862653c1fdee4585659ab1e8abefe,
+    type: 3}
+--- !u!114 &690563152622832452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2992868611528541634}
+  m_GameObject: {fileID: 3958283256861019091}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71732b9fa3be64d48aad2944b059b709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 428112997220120485}
+  _rb: {fileID: 6646080394969780265}

@@ -37,4 +37,6 @@ public class GameConstants : ScriptableObject
 
     public float HEALTH_DROP_PROBABILITY = 10f; // 0 - 100%
     public float HEALTH_ITEM_HEAL_AMOUNT = 20f;
+
+    public float FREEZE_COMMET_SPAWN_PROBABILITY = 0.1f;
 }
