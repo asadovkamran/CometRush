@@ -4,6 +4,7 @@ using System.Linq;
 using CometRush.Enums;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class CometSpawner : MonoBehaviour
 {
@@ -121,11 +122,44 @@ public class CometSpawner : MonoBehaviour
         var sortedDestroyableObjects = destroyableObjects
             .OrderBy(obj => Vector3.Distance(currentObject.transform.position, obj.transform.position));
 
+        List<Vector3> positions = new List<Vector3>();
+        positions.Add(hitObject.gameObject.transform.position);
+        foreach (var obj in sortedDestroyableObjects)
+        {
+            positions.Add(obj.gameObject.transform.position);
+        }
+
+        LineRenderer lineRenderer = CreateLineRenderer(positions);
+        List<Vector3> linePositions = new List<Vector3> { currentObject.transform.position };
+
         foreach (var obj in sortedDestroyableObjects)
         {
           obj.GetComponent<Comet>().Electricute();
           yield return new WaitForSeconds(_delayBetweenDestruction);
         }
+    }
+
+    LineRenderer CreateLineRenderer(List<Vector3> positions)
+    {
+        GameObject lineObject = new GameObject("ChainLightningLine");
+        LineRenderer lineRenderer = lineObject.AddComponent<LineRenderer>();
+
+        lineRenderer.positionCount = positions.Count;
+        for (int i = 0; i < positions.Count; i++)
+        {
+            lineRenderer.SetPosition(i, positions[i]);
+        }
+     
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+        //lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.startColor = Color.cyan;
+        lineRenderer.endColor = Color.white;
+
+        DestroyTimer destroyTimer = lineObject.AddComponent<DestroyTimer>();
+        destroyTimer.Timer = 0.1f;
+
+        return lineRenderer;
     }
 
     private List<Transform> GetActiveComets()
