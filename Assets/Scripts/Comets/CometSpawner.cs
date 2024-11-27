@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class CometSpawner : MonoBehaviour
 {
+    [SerializeField] private CometsPool _pool; 
     [Header("Game Constants")]
     [SerializeField] private GameConstants GAME_CONSTANTS;
 
@@ -58,7 +59,7 @@ public class CometSpawner : MonoBehaviour
     {
         while (true)
         {
-            ActiveComets = ActiveComets.Where(comet => !comet.IsDestroyed()).ToList();
+            ActiveComets = ActiveComets.Where(comet => comet.gameObject.activeSelf).ToList();
 
             if (ActiveComets.Count < GAME_CONSTANTS.MAX_SIMULTANEOUS_COMETS + Mathf.Floor(GameManager.Instance.getDifficulty()))
             {
@@ -75,15 +76,15 @@ public class CometSpawner : MonoBehaviour
     {
         if (Random.value < _iceCometSpawnProbability)
         {
-            return Instantiate(_iceCometTransform);
+            return _pool.GetObject("IceComet").transform;
         }
 
         if (Random.value < _electroCometSpawnProbability)
         {
-            return Instantiate(_electroCometTransform);
+            return _pool.GetObject("ElectroComet").transform;
         }
 
-        return Instantiate(_defaultCometTransform);
+        return _pool.GetObject("DefaultComet").transform;
     }
 
     private void HandleCometHit(CometType type, GameObject hitObject)
@@ -119,9 +120,10 @@ public class CometSpawner : MonoBehaviour
 
     IEnumerator CauseChainLightning(GameObject hitObject)
     {
-        List<GameObject> destroyableObjects = GameObject.FindGameObjectsWithTag("Comet").ToList();
+        //todo: get rid of GameObject.Find
+        List<Transform> destroyableObjects = ActiveComets;
 
-        destroyableObjects.Remove(hitObject);
+        destroyableObjects.Remove(hitObject.transform);
 
         GameObject currentObject = hitObject;
 

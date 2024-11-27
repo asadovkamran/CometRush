@@ -524,6 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f7199ede97d504b997ebdb2a4eda7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pool: {fileID: 573045731}
   GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
   _gameStatsSO: {fileID: 11400000, guid: 616c9095629bcd341ad8d6023d70a763, type: 2}
   _cometConfigSO: {fileID: 11400000, guid: 2a3ed430dbcaf8645bdba94ffcbd5c52, type: 2}
@@ -542,6 +543,63 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 427191912}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &573045730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 573045732}
+  - component: {fileID: 573045731}
+  m_Layer: 0
+  m_Name: CometsPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &573045731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573045730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c754d9fd0fe39bc44aa0c4531d713a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolSettings:
+  - poolName: DefaultComet
+    poolSize: 10
+    pooledObject: {fileID: 2992868611528541634, guid: 10dcc198c0095834dbe603396eaf3553,
+      type: 3}
+  - poolName: IceComet
+    poolSize: 5
+    pooledObject: {fileID: 3958283256861019091, guid: d067d6caa1797174284f983145e40f0c,
+      type: 3}
+  - poolName: ElectroComet
+    poolSize: 5
+    pooledObject: {fileID: 2992868611528541634, guid: 672b88e2e55b40140970dc76824123e5,
+      type: 3}
+--- !u!4 &573045732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573045730}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -992,3 +1050,4 @@ SceneRoots:
   - {fileID: 394226111}
   - {fileID: 2049878498}
   - {fileID: 343578191}
+  - {fileID: 573045732}
