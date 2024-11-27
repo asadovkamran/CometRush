@@ -2,6 +2,7 @@ using UnityEngine;
 using CometRush.Enums;
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine.Rendering;
 
 public class Comet : MonoBehaviour
@@ -15,6 +16,7 @@ public class Comet : MonoBehaviour
 
     public static event Action<float> OnCometReachPlayer;
 
+    [SerializeField] private CometsPool _pool;
     [SerializeField] private GameStatsSO _gameStatsSO;
     [SerializeField] private GameOverSO _gameOverSO;
     [SerializeField] private CometConfigSO _cometConfigSO;
@@ -25,15 +27,18 @@ public class Comet : MonoBehaviour
     private Rigidbody _rb;
     private MeshFilter _filter;
     private SphereCollider _sphereCollider;
+    private Material _material_tmp;
+    private float _speed_tmp;
     private bool isElectricuted = false;
 
 
     private void Start()
     {
+        _speed_tmp = Speed;
+        _pool = GameObject.Find("CometsPool").GetComponent<CometsPool>();
         Initialize();
         SetMaterial(_material);
-        HandleSpawn();
-        HandlePushTowardsPlayer();
+        
     }
 
     private void Initialize()
@@ -54,7 +59,8 @@ public class Comet : MonoBehaviour
         {
             OnCometReachPlayer?.Invoke(CometDamage);
             HandleCometReachPlayer();
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            ReturnToPool();
         }
     }
 
@@ -82,11 +88,15 @@ public class Comet : MonoBehaviour
     private void OnEnable()
     {
         HitDetection.OnCometHit += HandleHit;
+        Speed = _speed_tmp;
+        HandleSpawn();
+        HandlePushTowardsPlayer();
     }
 
     private void OnDisable()
     {
         HitDetection.OnCometHit -= HandleHit;
+        ResetComet();
     }
 
     private void HandleSpawn()
@@ -130,12 +140,14 @@ public class Comet : MonoBehaviour
 
             _cometConfigSO.OnCometHit(Type, obj);
 
-            Destroy(gameObject);
+            ReturnToPool();
+            //Destroy(gameObject);
         }
     }
 
     public void SetMaterial(Material material)
     {
+        _material_tmp = _material;
         _meshRenderer.material = material;
     }
 
@@ -143,7 +155,8 @@ public class Comet : MonoBehaviour
     {
         Instantiate(Explosions[UnityEngine.Random.Range(0, Explosions.Length)], transform.position,
             Quaternion.identity);
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        ReturnToPool();
     }
 
     public void Freeze()
@@ -158,9 +171,37 @@ public class Comet : MonoBehaviour
         Destroy();
     }
 
-    IEnumerator DestroyWithDelay()
+    private void ReturnToPool()
     {
-        yield return new WaitForSeconds(0.2f);
-        Destroy();
+        switch (Type)
+        {
+            case CometType.Default:
+                _pool.ReturnToPool("DefaultComet", gameObject);
+                break;
+            case CometType.Ice:
+                _pool.ReturnToPool("IceComet", gameObject);
+                break;
+            case CometType.Electro:
+                _pool.ReturnToPool("ElectroComet", gameObject);
+                break;
+        }
+        
+    }
+
+    private void ResetComet()
+    {
+        if (_rb == null)
+            _rb = GetComponent<Rigidbody>();
+
+        _rb.velocity = Vector3.zero;
+        Speed = 0;
+        _rb.angularVelocity = Vector3.zero;
+        _rb.position = new Vector3(0, 0, -1000);
+        transform.position = _rb.position;
+
+        _meshRenderer.material = _material_tmp;
+
+        isElectricuted = false;
+
     }
 }
