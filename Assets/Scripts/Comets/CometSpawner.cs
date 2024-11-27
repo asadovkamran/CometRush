@@ -4,12 +4,13 @@ using System.Linq;
 using CometRush.Enums;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Video;
 
 public class CometSpawner : MonoBehaviour
 {
     [Header("Game Constants")]
-    public GameConstants GAME_CONSTANTS;
+    [SerializeField] private GameConstants GAME_CONSTANTS;
+
+    [SerializeField] private GameStatsSO _gameStatsSO;
 
     [Header("Comet Configs")]
     [SerializeField] private CometConfigSO _cometConfigSO;
@@ -87,16 +88,21 @@ public class CometSpawner : MonoBehaviour
 
     private void HandleCometHit(CometType type, GameObject hitObject)
     {
+        int points = 1;
+        _gameStatsSO.AddScore(points);
+        // todo: show floating text here
         switch (type)
         {
+            case CometType.Default:
+                break;
             case CometType.Ice:
                 FreezeAllActiveComets();
                 break;
             case CometType.Electro:
                 StartCoroutine(CauseChainLightning(hitObject));
-                
                 break;
         }
+
     }
 
     private void FreezeAllActiveComets()
@@ -132,9 +138,12 @@ public class CometSpawner : MonoBehaviour
         LineRenderer lineRenderer = CreateLineRenderer(positions);
         List<Vector3> linePositions = new List<Vector3> { currentObject.transform.position };
 
+        int chainLightningStreak = 1;
         foreach (var obj in sortedDestroyableObjects)
         {
-          obj.GetComponent<Comet>().Electricute();
+            _gameStatsSO.AddScore(chainLightningStreak++);
+            obj.GetComponent<Comet>().Electricute();
+          //todo: show floating text
           yield return new WaitForSeconds(_delayBetweenDestruction);
         }
     }
@@ -152,7 +161,7 @@ public class CometSpawner : MonoBehaviour
      
         lineRenderer.startWidth = 0.1f;
         lineRenderer.endWidth = 0.1f;
-        //lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        
         lineRenderer.startColor = Color.cyan;
         lineRenderer.endColor = Color.white;
 

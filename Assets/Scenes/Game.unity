@@ -524,6 +524,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f7199ede97d504b997ebdb2a4eda7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
+  _gameStatsSO: {fileID: 11400000, guid: 616c9095629bcd341ad8d6023d70a763, type: 2}
   _cometConfigSO: {fileID: 11400000, guid: 2a3ed430dbcaf8645bdba94ffcbd5c52, type: 2}
   _defaultCometTransform: {fileID: 5615626148539670501, guid: 10dcc198c0095834dbe603396eaf3553,
     type: 3}
@@ -531,7 +533,7 @@ MonoBehaviour:
     type: 3}
   _electroCometTransform: {fileID: 5615626148539670501, guid: 672b88e2e55b40140970dc76824123e5,
     type: 3}
-  GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
+  _delayBetweenDestruction: 0.1
   ActiveComets: []
 --- !u!4 &427191914
 Transform:
@@ -741,7 +743,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e9775b644c709440978010adea8f13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameStatsSO: {fileID: 11400000, guid: 616c9095629bcd341ad8d6023d70a763, type: 2}
   _abilitySystem: {fileID: 0}
   Layer:
     serializedVersion: 2
