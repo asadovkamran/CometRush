@@ -24,7 +24,7 @@ public class CometConfigSO : ScriptableObject
     public GameObject ElectroCometExplosion;
     public float ElectroCometSpawnProbabilty = 0.025f;
 
-    public void OnCometHit(CometType type, GameObject hitObject)
+    public void OnCometHit(CometType type,GameObject hitObject)
     {
         CometHitEvent?.Invoke(type, hitObject);
     }

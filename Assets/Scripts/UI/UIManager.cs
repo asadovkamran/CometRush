@@ -6,6 +6,9 @@ public class UIManager : MonoBehaviour
     private StateMachine _stateMachine = new StateMachine();
     [SerializeField] private GameObject[] _uiStateObjects;
     [SerializeField] private GameObject _settingsMenuObject;
+    [SerializeField] private GameObject _leaderboardMenuObject;
+
+    [Header("Configs")]
     [SerializeField] private GameOverSO _gameOverSO;
     [SerializeField] private GameStatsSO _gameStatsSO;
 
@@ -50,6 +53,11 @@ public class UIManager : MonoBehaviour
         ToggleSettingsMenu();
     }
 
+    public void OnLeaderboardButton()
+    {
+        ToggleGameOverMenu();
+    }
+
     private void HandlePlay()
     {
         _stateMachine.ChangeState(new GameplayState(_uiStateObjects[1]), States.Gameplay);
@@ -75,6 +83,12 @@ public class UIManager : MonoBehaviour
         }
 
         _settingsMenuObject.SetActive(!_settingsMenuObject.activeSelf);
+    }
+
+    private void ToggleGameOverMenu()
+    {
+        _uiStateObjects[2].SetActive(!_uiStateObjects[2].activeSelf);
+        _leaderboardMenuObject.SetActive(!_leaderboardMenuObject.activeSelf);
     }
 
     private void ToggleTimeScale()

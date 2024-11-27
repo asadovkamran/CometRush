@@ -8,17 +8,24 @@ public class GameOverUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _timerText;
     [SerializeField] private GameStatsSO _gameStatsSO;
 
-    private void Start()
+    private void OnEnable()
     {
-        float hiScore = PlayerPrefs.GetFloat("HiScore", 0);
+        Initialize();
+    }
 
-        float score = _gameStatsSO.Score;
+    private void Initialize()
+    {
+        int hiScore = PlayerPrefs.GetInt("HiScore", 0);
+
+        int score = _gameStatsSO.Score;
 
         if (score > hiScore)
         {
-            PlayerPrefs.SetFloat("HiScore", score);
-            hiScore = PlayerPrefs.GetFloat("HiScore", 0);
+            PlayerPrefs.SetInt("HiScore", score);
+            hiScore = PlayerPrefs.GetInt("HiScore", 0);
         }
+
+        _gameStatsSO.HiScore = hiScore;
 
         _scoreText.text = "Score: " + score;
         _hiscoreText.text = "Hi-score: " + hiScore;

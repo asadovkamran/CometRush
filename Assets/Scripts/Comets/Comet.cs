@@ -1,9 +1,6 @@
 using UnityEngine;
 using CometRush.Enums;
 using System;
-using System.Collections;
-using Unity.VisualScripting;
-using UnityEngine.Rendering;
 
 public class Comet : MonoBehaviour
 {
@@ -41,16 +38,14 @@ public class Comet : MonoBehaviour
         
     }
 
-    private void Initialize()
+    private void OnEnable()
     {
-        _rb = GetComponent<Rigidbody>();
-        _filter = GetComponent<MeshFilter>();
+        HitDetection.OnCometHit += HandleHit;
+    }
 
-        _sphereCollider = gameObject.AddComponent<SphereCollider>();
-        _sphereCollider.radius *= GAME_CONSTANTS.COMET_COLLIDER_RADIUS_SCALE;
-
-        Mesh currentMesh = Meshes[UnityEngine.Random.Range(0, Meshes.Length)];
-        _filter.mesh = currentMesh;
+    private void OnDisable()
+    {
+        HitDetection.OnCometHit -= HandleHit;
     }
 
     private void FixedUpdate()
@@ -62,6 +57,18 @@ public class Comet : MonoBehaviour
             //Destroy(gameObject);
             ReturnToPool();
         }
+    }
+
+    private void Initialize()
+    {
+        _rb = GetComponent<Rigidbody>();
+        _filter = GetComponent<MeshFilter>();
+
+        _sphereCollider = gameObject.AddComponent<SphereCollider>();
+        _sphereCollider.radius *= GAME_CONSTANTS.COMET_COLLIDER_RADIUS_SCALE;
+
+        Mesh currentMesh = Meshes[UnityEngine.Random.Range(0, Meshes.Length)];
+        _filter.mesh = currentMesh;
     }
 
     private void HandleCometReachPlayer()
@@ -85,6 +92,7 @@ public class Comet : MonoBehaviour
         }
     }
 
+
     private void OnEnable()
     {
         HitDetection.OnCometHit += HandleHit;
@@ -98,6 +106,7 @@ public class Comet : MonoBehaviour
         HitDetection.OnCometHit -= HandleHit;
         ResetComet();
     }
+
 
     private void HandleSpawn()
     {
@@ -130,18 +139,16 @@ public class Comet : MonoBehaviour
         _rb.AddForce(force, ForceMode.Impulse);
     }
 
-    //todo: this logic should be moved to comet spawner
     private void HandleHit(GameObject obj)
     {
         if (obj != null && GameObject.ReferenceEquals(obj, gameObject) && !isElectricuted)
         {
-            Instantiate(Explosions[UnityEngine.Random.Range(0, Explosions.Length)], transform.position,
-                Quaternion.identity);
-
             _cometConfigSO.OnCometHit(Type, obj);
+
 
             ReturnToPool();
             //Destroy(gameObject);
+
         }
     }
 
@@ -170,6 +177,7 @@ public class Comet : MonoBehaviour
         SetMaterial(_cometConfigSO.ElectroCometMaterial);
         Destroy();
     }
+
 
     private void ReturnToPool()
     {
@@ -204,4 +212,5 @@ public class Comet : MonoBehaviour
         isElectricuted = false;
 
     }
+
 }
