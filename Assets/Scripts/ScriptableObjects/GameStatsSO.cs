@@ -46,9 +46,9 @@ public class GameStatsSO : ScriptableObject
         UpdateScore();
     }
 
-    public void IncrementScore()
+    public void AddScore(int amount)
     {
-        Score++;
+        Score += amount;
         UpdateScore();
     }
 
