@@ -646,6 +646,63 @@ MonoBehaviour:
   Star: {fileID: 5615626148539670501, guid: 179ea9eff01936744af5c88248d7a7bc, type: 3}
   GAME_CONSTANTS: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
   Pool: {fileID: 2062617311}
+--- !u!1 &1742817716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1742817718}
+  - component: {fileID: 1742817717}
+  m_Layer: 0
+  m_Name: CometsPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1742817717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742817716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c754d9fd0fe39bc44aa0c4531d713a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolSettings:
+  - poolName: 0
+    poolSize: 10
+    pooledObject: {fileID: 2992868611528541634, guid: 10dcc198c0095834dbe603396eaf3553,
+      type: 3}
+  - poolName: 1
+    poolSize: 5
+    pooledObject: {fileID: 3958283256861019091, guid: d067d6caa1797174284f983145e40f0c,
+      type: 3}
+  - poolName: 2
+    poolSize: 5
+    pooledObject: {fileID: 2992868611528541634, guid: 672b88e2e55b40140970dc76824123e5,
+      type: 3}
+--- !u!4 &1742817718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742817716}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.49035078, y: 6.121479, z: -42.30126}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1744397278
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,3 +1049,4 @@ SceneRoots:
   - {fileID: 394226111}
   - {fileID: 2049878498}
   - {fileID: 343578191}
+  - {fileID: 1742817718}

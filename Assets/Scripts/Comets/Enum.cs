@@ -4,10 +4,4 @@ namespace CometRush.Enums
     {
         Default, Ice, Electro
     };
-
-    public enum CometStatus
-    {
-        Default,
-        Frozen
-    };
 }
