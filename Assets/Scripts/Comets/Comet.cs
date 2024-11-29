@@ -13,7 +13,7 @@ public class Comet : MonoBehaviour
 
     public static event Action<float> OnCometReachPlayer;
 
-    [SerializeField] private CometsPool _pool;
+    [SerializeField] private CometsPool _cometsPool;
     [SerializeField] private GameStatsSO _gameStatsSO;
     [SerializeField] private GameOverSO _gameOverSO;
     [SerializeField] private CometConfigSO _cometConfigSO;
@@ -36,7 +36,7 @@ public class Comet : MonoBehaviour
     private void Start()
     {
         _speed_tmp = Speed;
-        _pool = GameObject.Find("CometsPool").GetComponent<CometsPool>();
+        _cometsPool = GameObject.Find("CometsPool").GetComponent<CometsPool>();
     }
 
     private void OnEnable()
@@ -144,8 +144,6 @@ public class Comet : MonoBehaviour
 
     public void Destroy()
     {
-        Instantiate(Explosions[UnityEngine.Random.Range(0, Explosions.Length)], transform.position,
-            Quaternion.identity);
         ReturnToPool();
     }
 
@@ -166,13 +164,13 @@ public class Comet : MonoBehaviour
         switch (Type)
         {
             case CometType.Default:
-                _pool.ReturnToPool(CometType.Default, gameObject);
+                _cometsPool.ReturnToPool(CometType.Default, gameObject);
                 break;
             case CometType.Ice:
-                _pool.ReturnToPool(CometType.Ice, gameObject);
+                _cometsPool.ReturnToPool(CometType.Ice, gameObject);
                 break;
             case CometType.Electro:
-                _pool.ReturnToPool(CometType.Electro, gameObject);
+                _cometsPool.ReturnToPool(CometType.Electro, gameObject);
                 break;
         }
 

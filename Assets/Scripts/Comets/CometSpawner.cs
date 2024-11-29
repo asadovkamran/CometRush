@@ -8,6 +8,7 @@ using UnityEngine;
 public class CometSpawner : MonoBehaviour
 {
     [SerializeField] private CometsPool _pool;
+    [SerializeField] private CometsPool _explosionsPool;
     [Header("Game Constants")]
     [SerializeField] private GameConstants GAME_CONSTANTS;
 
@@ -87,10 +88,28 @@ public class CometSpawner : MonoBehaviour
         return _pool.GetObject(CometType.Default).transform;
     }
 
+    private void MakeExplosion(CometType type, Vector3 position)
+    {
+        GameObject explosion = _explosionsPool.GetObject(type);
+        explosion.transform.position = position;
+        explosion.GetComponent<ParticleSystem>().Play();
+        StartCoroutine(ExplosionReturnToPool(type, explosion));
+    }
+
+    IEnumerator ExplosionReturnToPool(CometType type, GameObject obj)
+    {
+        yield return new WaitForSeconds(1.5f);
+        _explosionsPool.ReturnToPool(type, obj);
+    }
+
     private void HandleCometHit(CometType type, GameObject hitObject)
     {
         int points = 1;
+
+        MakeExplosion(type, hitObject.transform.position);
+
         _gameStatsSO.AddScore(points);
+        
         // todo: show floating text here
         switch (type)
         {
@@ -143,6 +162,7 @@ public class CometSpawner : MonoBehaviour
         foreach (var obj in sortedDestroyableObjects)
         {
             _gameStatsSO.AddScore(chainLightningStreak++);
+            MakeExplosion(CometType.Electro, obj.transform.position);
             obj.GetComponent<Comet>().Electricute();
           //todo: show floating text
           yield return new WaitForSeconds(_delayBetweenDestruction);

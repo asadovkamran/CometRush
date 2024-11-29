@@ -55,7 +55,16 @@ public class UIManager : MonoBehaviour
 
     public void OnLeaderboardButton()
     {
-        ToggleGameOverMenu();
+        if (_stateMachine.GetCurrentState() == States.MainMenu)
+        {
+            _uiStateObjects[0].SetActive(!_uiStateObjects[0].activeSelf);
+            _leaderboardMenuObject.SetActive(!_leaderboardMenuObject.activeSelf);
+        }
+        else
+        {
+            ToggleGameOverMenu();
+        }
+        
     }
 
     private void HandlePlay()

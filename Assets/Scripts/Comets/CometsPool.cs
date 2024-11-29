@@ -7,7 +7,7 @@ public class CometsPool : MonoBehaviour
     [System.Serializable]
     public class PoolSettings
     {
-        public CometType poolName; // Name to identify the pool
+        public CometType poolName;
         public int poolSize;
         public GameObject pooledObject;
     }
