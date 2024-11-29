@@ -13,6 +13,7 @@ public class Comet : MonoBehaviour
 
     public static event Action<float> OnCometReachPlayer;
 
+    [SerializeField] private CometsPool _pool;
     [SerializeField] private GameStatsSO _gameStatsSO;
     [SerializeField] private GameOverSO _gameOverSO;
     [SerializeField] private CometConfigSO _cometConfigSO;
@@ -24,24 +25,33 @@ public class Comet : MonoBehaviour
     private MeshFilter _filter;
     private SphereCollider _sphereCollider;
     private bool isElectricuted = false;
+    private Material _material_tmp;
+    private float _speed_tmp;
 
+    private void Awake()
+    {
+        Initialize();
+    }
 
     private void Start()
     {
-        Initialize();
-        SetMaterial(_material);
-        HandleSpawn();
-        HandlePushTowardsPlayer();
+        _speed_tmp = Speed;
+        _pool = GameObject.Find("CometsPool").GetComponent<CometsPool>();
     }
 
     private void OnEnable()
     {
         HitDetection.OnCometHit += HandleHit;
+        Speed = _speed_tmp;
+        SetMaterial(_material);
+        HandleSpawn();
+        HandlePushTowardsPlayer();
     }
 
     private void OnDisable()
     {
         HitDetection.OnCometHit -= HandleHit;
+        ResetComet();
     }
 
     private void FixedUpdate()
@@ -50,7 +60,7 @@ public class Comet : MonoBehaviour
         {
             OnCometReachPlayer?.Invoke(CometDamage);
             HandleCometReachPlayer();
-            Destroy(gameObject);
+            ReturnToPool();
         }
     }
 
@@ -136,7 +146,7 @@ public class Comet : MonoBehaviour
     {
         Instantiate(Explosions[UnityEngine.Random.Range(0, Explosions.Length)], transform.position,
             Quaternion.identity);
-        Destroy(gameObject);
+        ReturnToPool();
     }
 
     public void Freeze()
@@ -149,5 +159,39 @@ public class Comet : MonoBehaviour
         isElectricuted = true;
         SetMaterial(_cometConfigSO.ElectroCometMaterial);
         Destroy();
+    }
+
+    private void ReturnToPool()
+    {
+        switch (Type)
+        {
+            case CometType.Default:
+                _pool.ReturnToPool(CometType.Default, gameObject);
+                break;
+            case CometType.Ice:
+                _pool.ReturnToPool(CometType.Ice, gameObject);
+                break;
+            case CometType.Electro:
+                _pool.ReturnToPool(CometType.Electro, gameObject);
+                break;
+        }
+
+    }
+
+    private void ResetComet()
+    {
+        if (_rb == null)
+            _rb = GetComponent<Rigidbody>();
+
+        _rb.velocity = Vector3.zero;
+        Speed = 0;
+        _rb.angularVelocity = Vector3.zero;
+        _rb.position = new Vector3(0, 0, -1000);
+        transform.position = _rb.position;
+
+        _meshRenderer.material = _material_tmp;
+
+        isElectricuted = false;
+
     }
 }
