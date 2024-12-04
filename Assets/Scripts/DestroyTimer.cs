@@ -6,13 +6,8 @@ public class DestroyTimer : MonoBehaviour
 
     public float Timer;
 
-    private void Update()
+    private void Start()
     {
-        _time += Time.deltaTime;
-
-        if (_time >= Timer)
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject, Timer);
     }
 }

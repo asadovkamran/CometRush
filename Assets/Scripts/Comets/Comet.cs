@@ -1,6 +1,8 @@
 using UnityEngine;
 using CometRush.Enums;
 using System;
+using RDG;
+using UnityEngine.Events;
 
 public class Comet : MonoBehaviour
 {
@@ -9,9 +11,9 @@ public class Comet : MonoBehaviour
     public CometType Type;
     public float CometDamage;
     public Mesh[] Meshes;
-    public GameObject[] Explosions;
 
     public static event Action<float> OnCometReachPlayer;
+    public static event Action<GameObject> OnCometHitEvent;
 
     [SerializeField] private CometsPool _cometsPool;
     [SerializeField] private GameStatsSO _gameStatsSO;
@@ -27,6 +29,9 @@ public class Comet : MonoBehaviour
     private bool isElectricuted = false;
     private Material _material_tmp;
     private float _speed_tmp;
+    private CometType _cometStatus;
+    private int _cometPoints;
+    private Color _textColor;
 
     private void Awake()
     {
@@ -66,6 +71,7 @@ public class Comet : MonoBehaviour
 
     private void Initialize()
     {
+
         _rb = GetComponent<Rigidbody>();
         _filter = GetComponent<MeshFilter>();
 
@@ -74,6 +80,22 @@ public class Comet : MonoBehaviour
 
         Mesh currentMesh = Meshes[UnityEngine.Random.Range(0, Meshes.Length)];
         _filter.mesh = currentMesh;
+
+        switch (Type)
+        {
+            case CometType.Default:
+                _cometPoints = _cometConfigSO.DefaultCometPoints;
+                _textColor = _cometConfigSO.DefaultTextColor;
+                break;
+            case CometType.Ice:
+                _cometPoints = _cometConfigSO.IceCometPoints;
+                _textColor = _cometConfigSO.IceTextColor;
+                break;
+            case CometType.Electro:
+                _cometPoints = _cometConfigSO.ElectroCometPoints;
+                _textColor = _cometConfigSO.ElectroTextColor;
+                break;
+        }
     }
 
     private void HandleCometReachPlayer()
@@ -144,12 +166,23 @@ public class Comet : MonoBehaviour
 
     public void Destroy()
     {
+        // vibrate android device
+        Vibration.Vibrate(25, 255);
+        OnCometHitEvent?.Invoke(gameObject);
         ReturnToPool();
     }
 
     public void Freeze()
     {
         _rb.velocity = Vector3.zero;
+        _cometStatus = CometType.Ice;
+        _cometPoints = _cometConfigSO.IceCometPoints;
+        _textColor = _cometConfigSO.IceTextColor;
+    }
+
+    public CometType GetCometStatus()
+    {
+        return _cometStatus;
     }
 
     public void Electricute()
@@ -191,5 +224,31 @@ public class Comet : MonoBehaviour
 
         isElectricuted = false;
 
+        switch (Type)
+        {
+            case CometType.Default:
+                _cometPoints = _cometConfigSO.DefaultCometPoints;
+                _textColor = _cometConfigSO.DefaultTextColor;
+                break;
+            case CometType.Ice:
+                _cometPoints = _cometConfigSO.IceCometPoints;
+                _textColor = _cometConfigSO.IceTextColor;
+                break;
+            case CometType.Electro:
+                _cometPoints = _cometConfigSO.ElectroCometPoints;
+                _textColor = _cometConfigSO.ElectroTextColor;
+                break;
+        }
+
+    }
+
+    public int GetCometPoints()
+    {
+        return _cometPoints;
+    }
+
+    public Color GetTextColor()
+    {
+        return _textColor;
     }
 }

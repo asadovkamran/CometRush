@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using CometRush.Enums;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class CometSpawner : MonoBehaviour
 {
@@ -29,8 +33,8 @@ public class CometSpawner : MonoBehaviour
 
     [SerializeField] private float _delayBetweenDestruction = 0.1f;
     private float _electroCometSpawnProbability;
-    
-    
+
+    [SerializeField] private GameObject _floatingText;
 
     public List<Transform> ActiveComets = new List<Transform>();
 
@@ -104,13 +108,13 @@ public class CometSpawner : MonoBehaviour
 
     private void HandleCometHit(CometType type, GameObject hitObject)
     {
-        int points = 1;
+        Comet comet = hitObject.GetComponent<Comet>();
+        Color textColor = comet.GetTextColor();
 
+        _gameStatsSO.AddScore(comet.GetCometPoints());
+        ShowFloatingText(hitObject.transform.position, textColor, comet.GetCometPoints().ToString());
         MakeExplosion(type, hitObject.transform.position);
 
-        _gameStatsSO.AddScore(points);
-        
-        // todo: show floating text here
         switch (type)
         {
             case CometType.Default:
@@ -122,7 +126,15 @@ public class CometSpawner : MonoBehaviour
                 StartCoroutine(CauseChainLightning(hitObject));
                 break;
         }
+    }
 
+    private void ShowFloatingText(Vector3 position, Color textColor, string text = "1")
+    {
+        GameObject floatingTextObj = Instantiate(_floatingText, Vector3.zero, Quaternion.identity);
+        TextMeshProUGUI textObj = floatingTextObj.GetComponent<FloatingText>().FloatingTextObj;
+        textObj.text = "+" + text;
+        textObj.color = textColor;
+        textObj.rectTransform.position = Camera.main.WorldToScreenPoint(position) + new Vector3(0,80f,0);
     }
 
     private void FreezeAllActiveComets()
@@ -161,11 +173,15 @@ public class CometSpawner : MonoBehaviour
         int chainLightningStreak = 1;
         foreach (var obj in sortedDestroyableObjects)
         {
-            _gameStatsSO.AddScore(chainLightningStreak++);
+            chainLightningStreak++;
+            _gameStatsSO.AddScore(chainLightningStreak);
+            ShowFloatingText(obj.transform.position, Color.magenta, chainLightningStreak.ToString());
+
             MakeExplosion(CometType.Electro, obj.transform.position);
+            
             obj.GetComponent<Comet>().Electricute();
-          //todo: show floating text
-          yield return new WaitForSeconds(_delayBetweenDestruction);
+            
+            yield return new WaitForSeconds(_delayBetweenDestruction);
         }
     }
 

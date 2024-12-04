@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] private AudioClip _explosionSoundClip;
+    [SerializeField] private AudioClip[] _explosionSoundClip;
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private AudioMixerGroup _audioMixerGroup;
     [SerializeField] private AudioSource _backgroundMusicAudioSource;
@@ -38,7 +37,7 @@ public class SoundManager : MonoBehaviour
             AudioSource source = gameObject.AddComponent<AudioSource>();
             source.playOnAwake = false;
             source.outputAudioMixerGroup = _audioMixerGroup;
-            source.clip = _explosionSoundClip;
+            
             _bufferAudioSources.Add(source);
         }
     }
@@ -66,14 +65,14 @@ public class SoundManager : MonoBehaviour
 
     private void OnEnable()
     {
-        HitDetection.OnCometHit += HandleOnCometHit;
         Comet.OnCometReachPlayer += HandleOnCometReachPlayer;
+        Comet.OnCometHitEvent += HandleOnCometHit;
     }
 
     private void OnDisable()
     {
-        HitDetection.OnCometHit -= HandleOnCometHit;
         Comet.OnCometReachPlayer -= HandleOnCometReachPlayer;
+        Comet.OnCometHitEvent -= HandleOnCometHit;
     }
 
     private void HandleOnCometHit(GameObject obj)
@@ -82,8 +81,9 @@ public class SoundManager : MonoBehaviour
 
         AudioSource source = _bufferAudioSources[_currentSourceIndex];
 
-        if (source != null && !source.isPlaying)
+        if (source != null )
         {
+            source.clip = _explosionSoundClip[Random.Range(0, _explosionSoundClip.Length)];
             source.Play();
 
             _currentSourceIndex = (_currentSourceIndex + 1) % _bufferAudioSources.Count;

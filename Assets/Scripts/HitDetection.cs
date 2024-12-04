@@ -1,5 +1,4 @@
 using UnityEngine;
-using RDG;
 using System;
 
 public class HitDetection : MonoBehaviour
@@ -18,8 +17,6 @@ public class HitDetection : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, Layer))
             {
                 OnCometHit?.Invoke(hit.transform.gameObject);
-                // vibrate android device
-                Vibration.Vibrate(25, 255);
             }
         }
     }
