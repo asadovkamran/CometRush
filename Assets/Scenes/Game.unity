@@ -746,10 +746,6 @@ MonoBehaviour:
     poolSize: 10
     pooledObject: {fileID: 2992868611528541634, guid: 10dcc198c0095834dbe603396eaf3553,
       type: 3}
-  - poolName: 1
-    poolSize: 5
-    pooledObject: {fileID: 3958283256861019091, guid: d067d6caa1797174284f983145e40f0c,
-      type: 3}
   - poolName: 2
     poolSize: 5
     pooledObject: {fileID: 2992868611528541634, guid: 672b88e2e55b40140970dc76824123e5,

@@ -46,12 +46,14 @@ public class CometSpawner : MonoBehaviour
 
     private void OnEnable()
     {
+        GameplayUI.OnAbilityUsed += HandleAbilityUsed;
         _cometConfigSO.CometHitEvent.AddListener(HandleCometHit);
     }
 
     private void OnDisable()
     {
         _cometConfigSO.CometHitEvent.RemoveListener(HandleCometHit);
+        GameplayUI.OnAbilityUsed -= HandleAbilityUsed;
     }
 
     private void Start()
@@ -79,11 +81,6 @@ public class CometSpawner : MonoBehaviour
 
     private Transform SpawnCometWithProbability()
     {
-        if (Random.value < _iceCometSpawnProbability)
-        {
-            return _pool.GetObject(CometType.Ice).transform;
-        }
-
         if (Random.value < _electroCometSpawnProbability)
         {
             return _pool.GetObject(CometType.Electro).transform;
@@ -211,5 +208,10 @@ public class CometSpawner : MonoBehaviour
     private List<Transform> GetActiveComets()
     {
         return ActiveComets.Where(comet => !comet.IsDestroyed()).ToList();
+    }
+
+    private void HandleAbilityUsed()
+    {
+        FreezeAllActiveComets();
     }
 }
