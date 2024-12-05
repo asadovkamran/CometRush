@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using CometRush.Enums;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 public class CometSpawner : MonoBehaviour
 {
     [SerializeField] private CometsPool _pool;
     [SerializeField] private CometsPool _explosionsPool;
+    [SerializeField] private ObjectPool _floatingTextPool;
     [Header("Game Constants")]
     [SerializeField] private GameConstants GAME_CONSTANTS;
 
@@ -127,7 +126,7 @@ public class CometSpawner : MonoBehaviour
 
     private void ShowFloatingText(Vector3 position, Color textColor, string text = "1")
     {
-        GameObject floatingTextObj = Instantiate(_floatingText, Vector3.zero, Quaternion.identity);
+        GameObject floatingTextObj = _floatingTextPool.GetPooledObject();
         TextMeshProUGUI textObj = floatingTextObj.GetComponent<FloatingText>().FloatingTextObj;
         textObj.text = "+" + text;
         textObj.color = textColor;
