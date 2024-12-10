@@ -9,10 +9,13 @@ public class GameplayUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeReference] private TextMeshProUGUI _timerText;
     [SerializeField] private GameStatsSO _gameStatsSO; 
+    [SerializeField] private GameConstants _gameConstants;
 
     [SerializeField] private TextMeshProUGUI _abilityCooldownText;
-    private bool _onCoolDown = false;
+    private bool _onCoolDown = true;
     private float _abilityCooldown = 5f;
+
+    private float _currentHitAmount = 0;
 
     public static event Action OnAbilityUsed;
 
@@ -31,11 +34,13 @@ public class GameplayUI : MonoBehaviour
     {
         UpdateScoreText(_gameStatsSO.Score);
         _gameStatsSO.ScoreChangeEvent.AddListener(UpdateScoreText);
+        HitDetection.OnCometHit += HandleCometHit;
     }
 
     private void OnDisable()
     {
         _gameStatsSO.ScoreChangeEvent?.RemoveListener(UpdateScoreText);
+        HitDetection.OnCometHit -= HandleCometHit;
     }
 
     private void UpdateScoreText(float value)
@@ -57,8 +62,7 @@ public class GameplayUI : MonoBehaviour
     {
         if (!_onCoolDown) {
             OnAbilityUsed?.Invoke();
-            float currentCooldown = _abilityCooldown;
-            StartCoroutine(AbilityCooldown(currentCooldown));
+            _onCoolDown = true;
         }
     }
 
@@ -81,5 +85,15 @@ public class GameplayUI : MonoBehaviour
     private void UpdateAbilityButtonText(float cooldown)
     {
         _abilityCooldownText.text = cooldown > 0 ? $"{cooldown:0}s" : "Freeze!";
+    }
+
+    private void HandleCometHit(GameObject comet)
+    {
+        _currentHitAmount += _gameConstants.FREEZE_ABILITY_REPLENISH_RATE;
+        if (_currentHitAmount >= _gameConstants.FREEZE_ABILITY_MAX_CAPACITY)
+        {
+            _onCoolDown = false;
+            _currentHitAmount = 0;
+        }
     }
 }

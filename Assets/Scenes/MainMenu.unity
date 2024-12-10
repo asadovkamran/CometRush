@@ -5212,6 +5212,7 @@ MonoBehaviour:
   _scoreText: {fileID: 2766149791995267177}
   _timerText: {fileID: 7927454123240440134}
   _gameStatsSO: {fileID: 11400000, guid: 616c9095629bcd341ad8d6023d70a763, type: 2}
+  _gameConstants: {fileID: 11400000, guid: afca9e797dcdd4bcb87962e78d3b81e7, type: 2}
   _abilityCooldownText: {fileID: 134233972}
 --- !u!1 &1858091951
 GameObject:

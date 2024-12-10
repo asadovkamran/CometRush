@@ -39,4 +39,9 @@ public class GameConstants : ScriptableObject
     public float HEALTH_ITEM_HEAL_AMOUNT = 20f;
 
     public float FREEZE_COMMET_SPAWN_PROBABILITY = 0.1f;
+
+    public float FREEZE_ABILITY_REPLENISH_RATE = 1f;
+
+    // Freeze ability replenishes after FREEZE_ABILITY_REPLENISH_RATE times comets are hit
+    public float FREEZE_ABILITY_MAX_CAPACITY = 10f; 
 }
