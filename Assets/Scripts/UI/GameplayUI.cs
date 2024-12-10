@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
-using System.Data.Common;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameplayUI : MonoBehaviour
 {
@@ -11,7 +10,12 @@ public class GameplayUI : MonoBehaviour
     [SerializeField] private GameStatsSO _gameStatsSO; 
     [SerializeField] private GameConstants _gameConstants;
 
-    [SerializeField] private TextMeshProUGUI _abilityCooldownText;
+    [Header("Ability UI")]
+    
+    [SerializeField] private Button _abilityButton;
+    [SerializeField] private Sprite _abilityButtonDefaultSprite;
+    [SerializeField] private Sprite _abilityButtonReadySprite;
+    [SerializeField] private Image _cooldownOverlay;
     private bool _onCoolDown = true;
     private float _abilityCooldown = 5f;
 
@@ -21,7 +25,6 @@ public class GameplayUI : MonoBehaviour
 
     private void Start()
     {
-        _abilityCooldownText.text = $"{_abilityCooldown:0}s";
         UpdateScoreText(_gameStatsSO.Score);
     }
 
@@ -63,37 +66,44 @@ public class GameplayUI : MonoBehaviour
         if (!_onCoolDown) {
             OnAbilityUsed?.Invoke();
             _onCoolDown = true;
+            ResetCooldownOverlay();
+            ResetAbilityButton();
+            _abilityButton.image.sprite = _abilityButtonDefaultSprite;
         }
-    }
-
-    IEnumerator AbilityCooldown(float currentCooldown)
-    {
-        _onCoolDown = true;
-        float cooldownTimeLeft = currentCooldown;
-
-        while (cooldownTimeLeft > 0)
-        {
-            UpdateAbilityButtonText(cooldownTimeLeft);
-            cooldownTimeLeft -= Time.deltaTime;
-            yield return null;
-        }
-
-        UpdateAbilityButtonText(0);
-        _onCoolDown = false;
-    }
-
-    private void UpdateAbilityButtonText(float cooldown)
-    {
-        _abilityCooldownText.text = cooldown > 0 ? $"{cooldown:0}s" : "Freeze!";
     }
 
     private void HandleCometHit(GameObject comet)
     {
-        _currentHitAmount += _gameConstants.FREEZE_ABILITY_REPLENISH_RATE;
+        if (_onCoolDown) _currentHitAmount += _gameConstants.FREEZE_ABILITY_REPLENISH_RATE;
+        
+        UpdateCooldownOverlay();
         if (_currentHitAmount >= _gameConstants.FREEZE_ABILITY_MAX_CAPACITY)
         {
             _onCoolDown = false;
             _currentHitAmount = 0;
+            _abilityButton.image.sprite = _abilityButtonReadySprite;
+            AnimateAbilityButton();
         }
     }
+
+    private void UpdateCooldownOverlay()
+    {
+        _cooldownOverlay.fillAmount -= _gameConstants.FREEZE_ABILITY_REPLENISH_RATE / _gameConstants.FREEZE_ABILITY_MAX_CAPACITY;
+    }
+
+    private void ResetCooldownOverlay()
+    {
+        _cooldownOverlay.fillAmount = 1;
+    }
+
+    private void AnimateAbilityButton()
+    {
+        _abilityButton.gameObject.LeanScale(new Vector3(1.1f, 1.1f, 1.1f), 0.1f).setEaseInOutCubic().setLoopPingPong();
+    }   
+
+    private void ResetAbilityButton()
+    {
+        _abilityButton.gameObject.LeanScale(new Vector3(1f, 1f, 1f), 0.1f).setEaseInOutCubic().setOnComplete(() => _abilityButton.gameObject.LeanCancel());
+    }
 }
+
