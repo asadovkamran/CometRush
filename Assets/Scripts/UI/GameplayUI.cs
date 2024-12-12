@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,7 +49,7 @@ public class GameplayUI : MonoBehaviour
 
     private void UpdateScoreText(float value)
     {
-        _scoreText.text = "Score: " + value;
+        _scoreText.text = "Score: " + value;   
     }
 
     private void UpdateTimer()

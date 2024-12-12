@@ -37,6 +37,8 @@ public class CometSpawner : MonoBehaviour
 
     public List<Transform> ActiveComets = new List<Transform>();
 
+    [SerializeField] private ComboManager _comboManager;
+
     private void Awake()
     {
         _iceCometSpawnProbability = _cometConfigSO.IceCometSpawnProbabilty;
@@ -107,7 +109,7 @@ public class CometSpawner : MonoBehaviour
         Comet comet = hitObject.GetComponent<Comet>();
         Color textColor = comet.GetTextColor();
 
-        _gameStatsSO.AddScore(comet.GetCometPoints());
+        //_gameStatsSO.AddScore(comet.GetCometPoints());
         ShowFloatingText(hitObject.transform.position, textColor, comet.GetCometPoints().ToString());
         MakeExplosion(type, hitObject.transform.position);
 
@@ -170,7 +172,7 @@ public class CometSpawner : MonoBehaviour
         foreach (var obj in sortedDestroyableObjects)
         {
             chainLightningStreak++;
-            _gameStatsSO.AddScore(chainLightningStreak);
+            _comboManager.AddPoints(obj);
             ShowFloatingText(obj.transform.position, Color.magenta, chainLightningStreak.ToString());
 
             MakeExplosion(CometType.Electro, obj.transform.position);
