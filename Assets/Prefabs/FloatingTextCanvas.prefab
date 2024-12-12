@@ -247,7 +247,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2802494871149962618}
   - component: {fileID: 2327215681410399362}
-  - component: {fileID: 1553365395042903716}
   m_Layer: 0
   m_Name: FloatingTextCanvas
   m_TagString: Untagged
@@ -287,16 +286,4 @@ MonoBehaviour:
   _scaleTime: 0.5
   _scaleTweenType: 30
   FloatingTextObj: {fileID: 4719400641976029748}
---- !u!114 &1553365395042903716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2238866521246041098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82dfa0fc9c04d2d4f8d8446f2f3dc041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Timer: 0.5
+  _floatingTextPool: {fileID: 0}

@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using CometRush.Enums;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 public class CometSpawner : MonoBehaviour
 {
     [SerializeField] private CometsPool _pool;
     [SerializeField] private CometsPool _explosionsPool;
+    [SerializeField] private ObjectPool _floatingTextPool;
     [Header("Game Constants")]
     [SerializeField] private GameConstants GAME_CONSTANTS;
 
@@ -38,6 +37,8 @@ public class CometSpawner : MonoBehaviour
 
     public List<Transform> ActiveComets = new List<Transform>();
 
+    [SerializeField] private ComboManager _comboManager;
+
     private void Awake()
     {
         _iceCometSpawnProbability = _cometConfigSO.IceCometSpawnProbabilty;
@@ -46,12 +47,14 @@ public class CometSpawner : MonoBehaviour
 
     private void OnEnable()
     {
+        GameplayUI.OnAbilityUsed += HandleAbilityUsed;
         _cometConfigSO.CometHitEvent.AddListener(HandleCometHit);
     }
 
     private void OnDisable()
     {
         _cometConfigSO.CometHitEvent.RemoveListener(HandleCometHit);
+        GameplayUI.OnAbilityUsed -= HandleAbilityUsed;
     }
 
     private void Start()
@@ -79,11 +82,6 @@ public class CometSpawner : MonoBehaviour
 
     private Transform SpawnCometWithProbability()
     {
-        if (Random.value < _iceCometSpawnProbability)
-        {
-            return _pool.GetObject(CometType.Ice).transform;
-        }
-
         if (Random.value < _electroCometSpawnProbability)
         {
             return _pool.GetObject(CometType.Electro).transform;
@@ -111,7 +109,7 @@ public class CometSpawner : MonoBehaviour
         Comet comet = hitObject.GetComponent<Comet>();
         Color textColor = comet.GetTextColor();
 
-        _gameStatsSO.AddScore(comet.GetCometPoints());
+        //_gameStatsSO.AddScore(comet.GetCometPoints());
         ShowFloatingText(hitObject.transform.position, textColor, comet.GetCometPoints().ToString());
         MakeExplosion(type, hitObject.transform.position);
 
@@ -130,7 +128,7 @@ public class CometSpawner : MonoBehaviour
 
     private void ShowFloatingText(Vector3 position, Color textColor, string text = "1")
     {
-        GameObject floatingTextObj = Instantiate(_floatingText, Vector3.zero, Quaternion.identity);
+        GameObject floatingTextObj = _floatingTextPool.GetPooledObject();
         TextMeshProUGUI textObj = floatingTextObj.GetComponent<FloatingText>().FloatingTextObj;
         textObj.text = "+" + text;
         textObj.color = textColor;
@@ -174,7 +172,7 @@ public class CometSpawner : MonoBehaviour
         foreach (var obj in sortedDestroyableObjects)
         {
             chainLightningStreak++;
-            _gameStatsSO.AddScore(chainLightningStreak);
+            _comboManager.AddPoints(obj);
             ShowFloatingText(obj.transform.position, Color.magenta, chainLightningStreak.ToString());
 
             MakeExplosion(CometType.Electro, obj.transform.position);
@@ -211,5 +209,10 @@ public class CometSpawner : MonoBehaviour
     private List<Transform> GetActiveComets()
     {
         return ActiveComets.Where(comet => !comet.IsDestroyed()).ToList();
+    }
+
+    private void HandleAbilityUsed()
+    {
+        FreezeAllActiveComets();
     }
 }

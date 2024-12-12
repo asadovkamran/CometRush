@@ -36,6 +36,7 @@ public class CometsPool : MonoBehaviour
             instance.SetActive(false);
             poolStack.Push(instance);
         }
+        
         _pools[poolName] = poolStack;
     }
 
