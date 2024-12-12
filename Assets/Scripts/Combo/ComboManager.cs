@@ -105,10 +105,11 @@ public class ComboManager : MonoBehaviour
         }
 
         textMesh.text = (textMesh == _comboText ? "x" : "+") + value;
-
-        textMesh.gameObject.LeanScale(new Vector3(1.3f, 1.3f, 1.3f), 0.2f).setEasePunch().setOnComplete(() =>
+        //textMesh.gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+        textMesh.gameObject.LeanScale(textMesh.gameObject.transform.localScale + new Vector3(1.1f, 1.1f, 1.1f), 0.2f)
+        .setEasePunch().setOnComplete(() =>
         {
-            textMesh.gameObject.LeanScale(new Vector3(1f, 1f, 1f), 0.2f).setEaseInOutCubic();
+            textMesh.gameObject.LeanScale(new Vector3(1f, 1f, 1f), 0.1f).setEaseInOutCubic();
         });
     }
 
