@@ -172,7 +172,7 @@ public class CometSpawner : MonoBehaviour
         foreach (var obj in sortedDestroyableObjects)
         {
             chainLightningStreak++;
-            _comboManager.AddPoints(obj);
+            _comboManager.AddPoints(obj, chainLightningStreak);
             ShowFloatingText(obj.transform.position, Color.magenta, chainLightningStreak.ToString());
 
             MakeExplosion(CometType.Electro, obj.transform.position);

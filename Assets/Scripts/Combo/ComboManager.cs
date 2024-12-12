@@ -5,6 +5,7 @@ public class ComboManager : MonoBehaviour
 {
     private float _lastHitTime;
     private TextMeshProUGUI _comboText;
+    private TextMeshProUGUI _scoreToAddText;
     private int _pointsCount = 0;
     private Color _comboTextColorDefault = Color.white;
     private Color _comboTextColorYellow = Color.yellow;
@@ -12,6 +13,7 @@ public class ComboManager : MonoBehaviour
     private Color _comboTextColorRed = new Color(1, 0, 0);
     private float _comboDuration = 0.5f;
     [SerializeField] private GameStatsSO _gameStatsSO;
+    
     private int _comboCount = 0;
 
 
@@ -19,7 +21,9 @@ public class ComboManager : MonoBehaviour
     {
         _lastHitTime = Time.time;
         _comboText = GameObject.Find("ComboText").GetComponent<TextMeshProUGUI>();
+        _scoreToAddText = GameObject.Find("ScoreToAddText").GetComponent<TextMeshProUGUI>();
         _comboText.text = "";
+        _scoreToAddText.text = "";
     }
 
     private void OnEnable()
@@ -42,6 +46,7 @@ public class ComboManager : MonoBehaviour
         if (!ComboActive)
         {
             HideComboText();
+            HideScoreToAddText();
             AddScore();
             _comboCount = 0;
             _pointsCount = 0;
@@ -56,7 +61,7 @@ public class ComboManager : MonoBehaviour
         AddPoints(comet);
     }
 
-    public void AddPoints( GameObject comet) {
+    public void AddPoints( GameObject comet, int chainLightningStreak = 0) {
         var cometPoints = comet.GetComponent<Comet>().GetCometPoints();
 
         if (ComboActive)
@@ -68,33 +73,47 @@ public class ComboManager : MonoBehaviour
             _comboCount = 1;
         }
 
-        _pointsCount += cometPoints;
+        _pointsCount += cometPoints + chainLightningStreak;
 
-        ShowComboText();
+        ShowScoreToAddText();
         _lastHitTime = Time.time;
     }
 
     private void ShowComboText()
     {
-        _comboText.color = _comboTextColorDefault;
+        UpdateText(_comboText, _comboCount);
+    }
+
+    private void ShowScoreToAddText() {
+        UpdateText(_scoreToAddText, _pointsCount * _comboCount);
+    }
+
+    private void UpdateText(TextMeshProUGUI textMesh, int value)
+    {
+        textMesh.color = _comboTextColorDefault;
 
         if (_comboCount > 3) {
-            _comboText.color = _comboTextColorYellow;
+            textMesh.color = _comboTextColorYellow;
         }
 
         if (_comboCount > 6) {
-            _comboText.color = _comboTextColorOrange;
+            textMesh.color = _comboTextColorOrange;
         }
 
         if (_comboCount > 9) {
-            _comboText.color = _comboTextColorRed;
+            textMesh.color = _comboTextColorRed;
         }
 
-   _comboText.text = "x" + _comboCount;
-        _comboText.gameObject.LeanScale(new Vector3(1.3f, 1.3f, 1.3f), 0.2f).setEasePunch().setOnComplete(() =>
+        textMesh.text = (textMesh == _comboText ? "x" : "+") + value;
+
+        textMesh.gameObject.LeanScale(new Vector3(1.3f, 1.3f, 1.3f), 0.2f).setEasePunch().setOnComplete(() =>
         {
-            _comboText.gameObject.LeanScale(new Vector3(1f, 1f, 1f), 0.2f).setEaseInOutCubic();
+            textMesh.gameObject.LeanScale(new Vector3(1f, 1f, 1f), 0.2f).setEaseInOutCubic();
         });
+    }
+
+    private void HideScoreToAddText() {
+        _scoreToAddText.text = "";
     }
 
     private void HideComboText()
