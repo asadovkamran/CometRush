@@ -29,6 +29,7 @@ public class CometSpawner : MonoBehaviour
 
     [Header("Electro Comet")]
     [SerializeField] private Transform _electroCometTransform;
+    [SerializeField] private Material _chaingLightningMaterial;
 
     [SerializeField] private float _delayBetweenDestruction = 0.1f;
     private float _electroCometSpawnProbability;
@@ -199,6 +200,7 @@ public class CometSpawner : MonoBehaviour
         
         lineRenderer.startColor = Color.cyan;
         lineRenderer.endColor = Color.white;
+        lineRenderer.material = _chaingLightningMaterial;
 
         DestroyTimer destroyTimer = lineObject.AddComponent<DestroyTimer>();
         destroyTimer.Timer = 0.1f;
